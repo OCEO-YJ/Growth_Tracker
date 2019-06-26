@@ -32,12 +32,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         setUIToView()
 
     }
-    
+    /* Function: set all the UIs to the View */
     func setUIToView() {
         
         /* set background color: pink */
-        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
-        
+//        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
+        let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+
         /* set the all the label's texts have a bold and size to 10 and pink color*/
         userNameLabel.textColor = backgroundColor
         userNameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 10)
