@@ -9,11 +9,17 @@
 /* Begin PBXBuildFile section */
 		5906310B22C16D8E0070EA4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906310A22C16D8E0070EA4B /* AppDelegate.swift */; };
 		5906310D22C16D8E0070EA4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906310C22C16D8E0070EA4B /* ViewController.swift */; };
-		5906311022C16D8E0070EA4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5906310E22C16D8E0070EA4B /* Main.storyboard */; };
 		5906311222C16D900070EA4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5906311122C16D900070EA4B /* Assets.xcassets */; };
 		5906311522C16D900070EA4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5906311322C16D900070EA4B /* LaunchScreen.storyboard */; };
 		5906312022C16D900070EA4B /* BabyGrowthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906311F22C16D900070EA4B /* BabyGrowthTests.swift */; };
 		5906312B22C16D900070EA4B /* BabyGrowthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906312A22C16D900070EA4B /* BabyGrowthUITests.swift */; };
+		5906313D22C1BD8F0070EA4B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906313C22C1BD8F0070EA4B /* LoginView.swift */; };
+		5906313F22C1BDC10070EA4B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906313E22C1BDC10070EA4B /* SignUpView.swift */; };
+		5906314122C1BE100070EA4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5906314022C1BE100070EA4B /* Main.storyboard */; };
+		5906314322C1C24B0070EA4B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314222C1C24B0070EA4B /* Helper.swift */; };
+		5906314522C2B7130070EA4B /* GrowthCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314422C2B7130070EA4B /* GrowthCurveView.swift */; };
+		5906314722C2B7480070EA4B /* TakePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314622C2B7480070EA4B /* TakePictureView.swift */; };
+		5906314922C2C12A0070EA4B /* WeightRecordlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314822C2C12A0070EA4B /* WeightRecordlView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,19 +40,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5906310722C16D8E0070EA4B /* BabyGrowth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyGrowth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5906310722C16D8E0070EA4B /* GrowthTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrowthTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5906310A22C16D8E0070EA4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5906310C22C16D8E0070EA4B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5906310F22C16D8E0070EA4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5906311122C16D900070EA4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5906311422C16D900070EA4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5906311622C16D900070EA4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5906311B22C16D900070EA4B /* BabyGrowthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabyGrowthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5906311B22C16D900070EA4B /* GrowthTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrowthTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5906311F22C16D900070EA4B /* BabyGrowthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyGrowthTests.swift; sourceTree = "<group>"; };
 		5906312122C16D900070EA4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5906312622C16D900070EA4B /* BabyGrowthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabyGrowthUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5906312622C16D900070EA4B /* GrowthTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrowthTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5906312A22C16D900070EA4B /* BabyGrowthUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyGrowthUITests.swift; sourceTree = "<group>"; };
 		5906312C22C16D900070EA4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5906313C22C1BD8F0070EA4B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5906313E22C1BDC10070EA4B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		5906314022C1BE100070EA4B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5906314222C1C24B0070EA4B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		5906314422C2B7130070EA4B /* GrowthCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowthCurveView.swift; sourceTree = "<group>"; };
+		5906314622C2B7480070EA4B /* TakePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePictureView.swift; sourceTree = "<group>"; };
+		5906314822C2C12A0070EA4B /* WeightRecordlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordlView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				5906310922C16D8E0070EA4B /* BabyGrowth */,
-				5906311E22C16D900070EA4B /* BabyGrowthTests */,
 				5906312922C16D900070EA4B /* BabyGrowthUITests */,
 				5906310822C16D8E0070EA4B /* Products */,
 			);
@@ -87,9 +98,9 @@
 		5906310822C16D8E0070EA4B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5906310722C16D8E0070EA4B /* BabyGrowth.app */,
-				5906311B22C16D900070EA4B /* BabyGrowthTests.xctest */,
-				5906312622C16D900070EA4B /* BabyGrowthUITests.xctest */,
+				5906310722C16D8E0070EA4B /* GrowthTracker.app */,
+				5906311B22C16D900070EA4B /* GrowthTrackerTests.xctest */,
+				5906312622C16D900070EA4B /* GrowthTrackerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,10 +110,17 @@
 			children = (
 				5906310A22C16D8E0070EA4B /* AppDelegate.swift */,
 				5906310C22C16D8E0070EA4B /* ViewController.swift */,
-				5906310E22C16D8E0070EA4B /* Main.storyboard */,
+				5906313C22C1BD8F0070EA4B /* LoginView.swift */,
+				5906313E22C1BDC10070EA4B /* SignUpView.swift */,
+				5906314422C2B7130070EA4B /* GrowthCurveView.swift */,
+				5906314622C2B7480070EA4B /* TakePictureView.swift */,
+				5906314822C2C12A0070EA4B /* WeightRecordlView.swift */,
+				5906314022C1BE100070EA4B /* Main.storyboard */,
+				5906311E22C16D900070EA4B /* BabyGrowthTests */,
 				5906311122C16D900070EA4B /* Assets.xcassets */,
 				5906311322C16D900070EA4B /* LaunchScreen.storyboard */,
 				5906311622C16D900070EA4B /* Info.plist */,
+				5906314222C1C24B0070EA4B /* Helper.swift */,
 			);
 			path = BabyGrowth;
 			sourceTree = "<group>";
@@ -128,9 +146,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5906310622C16D8E0070EA4B /* BabyGrowth */ = {
+		5906310622C16D8E0070EA4B /* GrowthTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5906312F22C16D900070EA4B /* Build configuration list for PBXNativeTarget "BabyGrowth" */;
+			buildConfigurationList = 5906312F22C16D900070EA4B /* Build configuration list for PBXNativeTarget "GrowthTracker" */;
 			buildPhases = (
 				5906310322C16D8E0070EA4B /* Sources */,
 				5906310422C16D8E0070EA4B /* Frameworks */,
@@ -140,14 +158,14 @@
 			);
 			dependencies = (
 			);
-			name = BabyGrowth;
+			name = GrowthTracker;
 			productName = BabyGrowth;
-			productReference = 5906310722C16D8E0070EA4B /* BabyGrowth.app */;
+			productReference = 5906310722C16D8E0070EA4B /* GrowthTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5906311A22C16D900070EA4B /* BabyGrowthTests */ = {
+		5906311A22C16D900070EA4B /* GrowthTrackerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5906313222C16D900070EA4B /* Build configuration list for PBXNativeTarget "BabyGrowthTests" */;
+			buildConfigurationList = 5906313222C16D900070EA4B /* Build configuration list for PBXNativeTarget "GrowthTrackerTests" */;
 			buildPhases = (
 				5906311722C16D900070EA4B /* Sources */,
 				5906311822C16D900070EA4B /* Frameworks */,
@@ -158,14 +176,14 @@
 			dependencies = (
 				5906311D22C16D900070EA4B /* PBXTargetDependency */,
 			);
-			name = BabyGrowthTests;
+			name = GrowthTrackerTests;
 			productName = BabyGrowthTests;
-			productReference = 5906311B22C16D900070EA4B /* BabyGrowthTests.xctest */;
+			productReference = 5906311B22C16D900070EA4B /* GrowthTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5906312522C16D900070EA4B /* BabyGrowthUITests */ = {
+		5906312522C16D900070EA4B /* GrowthTrackerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5906313522C16D900070EA4B /* Build configuration list for PBXNativeTarget "BabyGrowthUITests" */;
+			buildConfigurationList = 5906313522C16D900070EA4B /* Build configuration list for PBXNativeTarget "GrowthTrackerUITests" */;
 			buildPhases = (
 				5906312222C16D900070EA4B /* Sources */,
 				5906312322C16D900070EA4B /* Frameworks */,
@@ -176,9 +194,9 @@
 			dependencies = (
 				5906312822C16D900070EA4B /* PBXTargetDependency */,
 			);
-			name = BabyGrowthUITests;
+			name = GrowthTrackerUITests;
 			productName = BabyGrowthUITests;
-			productReference = 5906312622C16D900070EA4B /* BabyGrowthUITests.xctest */;
+			productReference = 5906312622C16D900070EA4B /* GrowthTrackerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -204,7 +222,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5906310222C16D8E0070EA4B /* Build configuration list for PBXProject "BabyGrowth" */;
+			buildConfigurationList = 5906310222C16D8E0070EA4B /* Build configuration list for PBXProject "GrowthTracker" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -217,9 +235,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5906310622C16D8E0070EA4B /* BabyGrowth */,
-				5906311A22C16D900070EA4B /* BabyGrowthTests */,
-				5906312522C16D900070EA4B /* BabyGrowthUITests */,
+				5906310622C16D8E0070EA4B /* GrowthTracker */,
+				5906311A22C16D900070EA4B /* GrowthTrackerTests */,
+				5906312522C16D900070EA4B /* GrowthTrackerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,9 +247,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5906314122C1BE100070EA4B /* Main.storyboard in Resources */,
 				5906311522C16D900070EA4B /* LaunchScreen.storyboard in Resources */,
 				5906311222C16D900070EA4B /* Assets.xcassets in Resources */,
-				5906311022C16D8E0070EA4B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,8 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5906313F22C1BDC10070EA4B /* SignUpView.swift in Sources */,
+				5906314322C1C24B0070EA4B /* Helper.swift in Sources */,
+				5906314922C2C12A0070EA4B /* WeightRecordlView.swift in Sources */,
+				5906313D22C1BD8F0070EA4B /* LoginView.swift in Sources */,
+				5906314522C2B7130070EA4B /* GrowthCurveView.swift in Sources */,
 				5906310D22C16D8E0070EA4B /* ViewController.swift in Sources */,
 				5906310B22C16D8E0070EA4B /* AppDelegate.swift in Sources */,
+				5906314722C2B7480070EA4B /* TakePictureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,25 +306,17 @@
 /* Begin PBXTargetDependency section */
 		5906311D22C16D900070EA4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5906310622C16D8E0070EA4B /* BabyGrowth */;
+			target = 5906310622C16D8E0070EA4B /* GrowthTracker */;
 			targetProxy = 5906311C22C16D900070EA4B /* PBXContainerItemProxy */;
 		};
 		5906312822C16D900070EA4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5906310622C16D8E0070EA4B /* BabyGrowth */;
+			target = 5906310622C16D8E0070EA4B /* GrowthTracker */;
 			targetProxy = 5906312722C16D900070EA4B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5906310E22C16D8E0070EA4B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5906310F22C16D8E0070EA4B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5906311322C16D900070EA4B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -481,7 +497,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BabyGrowth.app/BabyGrowth";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GrowthTracker.app/GrowthTracker";
 			};
 			name = Debug;
 		};
@@ -502,7 +518,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BabyGrowth.app/BabyGrowth";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GrowthTracker.app/GrowthTracker";
 			};
 			name = Release;
 		};
@@ -549,7 +565,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5906310222C16D8E0070EA4B /* Build configuration list for PBXProject "BabyGrowth" */ = {
+		5906310222C16D8E0070EA4B /* Build configuration list for PBXProject "GrowthTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5906312D22C16D900070EA4B /* Debug */,
@@ -558,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5906312F22C16D900070EA4B /* Build configuration list for PBXNativeTarget "BabyGrowth" */ = {
+		5906312F22C16D900070EA4B /* Build configuration list for PBXNativeTarget "GrowthTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5906313022C16D900070EA4B /* Debug */,
@@ -567,7 +583,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5906313222C16D900070EA4B /* Build configuration list for PBXNativeTarget "BabyGrowthTests" */ = {
+		5906313222C16D900070EA4B /* Build configuration list for PBXNativeTarget "GrowthTrackerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5906313322C16D900070EA4B /* Debug */,
@@ -576,7 +592,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5906313522C16D900070EA4B /* Build configuration list for PBXNativeTarget "BabyGrowthUITests" */ = {
+		5906313522C16D900070EA4B /* Build configuration list for PBXNativeTarget "GrowthTrackerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5906313622C16D900070EA4B /* Debug */,

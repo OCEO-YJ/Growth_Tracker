@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:BabyGrowth.xcodeproj">
+      location = "self:/Users/OCEO/Documents/Research/Summer Research/BabyGrowth/GrowthTracker.xcodeproj">
    </FileRef>
 </Workspace>
