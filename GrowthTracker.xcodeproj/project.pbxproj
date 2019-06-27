@@ -13,13 +13,14 @@
 		5906311522C16D900070EA4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5906311322C16D900070EA4B /* LaunchScreen.storyboard */; };
 		5906312022C16D900070EA4B /* BabyGrowthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906311F22C16D900070EA4B /* BabyGrowthTests.swift */; };
 		5906312B22C16D900070EA4B /* BabyGrowthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906312A22C16D900070EA4B /* BabyGrowthUITests.swift */; };
-		5906313D22C1BD8F0070EA4B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906313C22C1BD8F0070EA4B /* LoginView.swift */; };
-		5906313F22C1BDC10070EA4B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906313E22C1BDC10070EA4B /* SignUpView.swift */; };
 		5906314122C1BE100070EA4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5906314022C1BE100070EA4B /* Main.storyboard */; };
 		5906314322C1C24B0070EA4B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314222C1C24B0070EA4B /* Helper.swift */; };
 		5906314522C2B7130070EA4B /* GrowthCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314422C2B7130070EA4B /* GrowthCurveView.swift */; };
 		5906314722C2B7480070EA4B /* TakePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314622C2B7480070EA4B /* TakePictureView.swift */; };
-		5906314922C2C12A0070EA4B /* WeightRecordlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314822C2C12A0070EA4B /* WeightRecordlView.swift */; };
+		5906314922C2C12A0070EA4B /* ResultsRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314822C2C12A0070EA4B /* ResultsRecordView.swift */; };
+		5947EA3C22C575EC00261C31 /* weightScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3B22C575EC00261C31 /* weightScaleView.swift */; };
+		5947EA3E22C57A6C00261C31 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3D22C57A6C00261C31 /* EndViewController.swift */; };
+		5947EA4222C57B8500261C31 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA4122C57B8500261C31 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,13 +53,14 @@
 		5906312622C16D900070EA4B /* GrowthTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrowthTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5906312A22C16D900070EA4B /* BabyGrowthUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyGrowthUITests.swift; sourceTree = "<group>"; };
 		5906312C22C16D900070EA4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5906313C22C1BD8F0070EA4B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		5906313E22C1BDC10070EA4B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		5906314022C1BE100070EA4B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5906314222C1C24B0070EA4B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		5906314422C2B7130070EA4B /* GrowthCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowthCurveView.swift; sourceTree = "<group>"; };
 		5906314622C2B7480070EA4B /* TakePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePictureView.swift; sourceTree = "<group>"; };
-		5906314822C2C12A0070EA4B /* WeightRecordlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordlView.swift; sourceTree = "<group>"; };
+		5906314822C2C12A0070EA4B /* ResultsRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRecordView.swift; sourceTree = "<group>"; };
+		5947EA3B22C575EC00261C31 /* weightScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weightScaleView.swift; sourceTree = "<group>"; };
+		5947EA3D22C57A6C00261C31 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
+		5947EA4122C57B8500261C31 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,11 +112,12 @@
 			children = (
 				5906310A22C16D8E0070EA4B /* AppDelegate.swift */,
 				5906310C22C16D8E0070EA4B /* ViewController.swift */,
-				5906313C22C1BD8F0070EA4B /* LoginView.swift */,
-				5906313E22C1BDC10070EA4B /* SignUpView.swift */,
+				5947EA4122C57B8500261C31 /* LoginView.swift */,
 				5906314422C2B7130070EA4B /* GrowthCurveView.swift */,
 				5906314622C2B7480070EA4B /* TakePictureView.swift */,
-				5906314822C2C12A0070EA4B /* WeightRecordlView.swift */,
+				5906314822C2C12A0070EA4B /* ResultsRecordView.swift */,
+				5947EA3B22C575EC00261C31 /* weightScaleView.swift */,
+				5947EA3D22C57A6C00261C31 /* EndViewController.swift */,
 				5906314022C1BE100070EA4B /* Main.storyboard */,
 				5906311E22C16D900070EA4B /* BabyGrowthTests */,
 				5906311122C16D900070EA4B /* Assets.xcassets */,
@@ -274,10 +277,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5906313F22C1BDC10070EA4B /* SignUpView.swift in Sources */,
+				5947EA4222C57B8500261C31 /* LoginView.swift in Sources */,
+				5947EA3E22C57A6C00261C31 /* EndViewController.swift in Sources */,
+				5947EA3C22C575EC00261C31 /* weightScaleView.swift in Sources */,
 				5906314322C1C24B0070EA4B /* Helper.swift in Sources */,
-				5906314922C2C12A0070EA4B /* WeightRecordlView.swift in Sources */,
-				5906313D22C1BD8F0070EA4B /* LoginView.swift in Sources */,
+				5906314922C2C12A0070EA4B /* ResultsRecordView.swift in Sources */,
 				5906314522C2B7130070EA4B /* GrowthCurveView.swift in Sources */,
 				5906310D22C16D8E0070EA4B /* ViewController.swift in Sources */,
 				5906310B22C16D8E0070EA4B /* AppDelegate.swift in Sources */,

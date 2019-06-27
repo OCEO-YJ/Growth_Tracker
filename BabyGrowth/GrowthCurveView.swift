@@ -35,4 +35,9 @@ class GrowthCurveViewController: UIViewController {
         homeButton.setTitleColor(UIColor.white, for: .normal)
 
     }
+    
+    /* Function: if the user clicks the home button, then the user would go the login view */
+    @IBAction func homeButton_TouchUpInside(_ sender: Any) {
+        performSegue(withIdentifier: "GrowthCurve_To_Login_Segue", sender: nil)
+    }
 }

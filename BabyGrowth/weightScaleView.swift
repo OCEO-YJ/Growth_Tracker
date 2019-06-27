@@ -1,19 +1,20 @@
 //
-//  TakePictureViewController.swift
-//  BabyGrowth
+//  weightScaleViewController.swift
+//  GrowthTracker
 //
-//  Created by OCEO on 6/25/19.
+//  Created by OCEO on 6/27/19.
 //  Copyright © 2019 OCEO. All rights reserved.
 //
 
 import UIKit
 import AVFoundation
-import AudioToolbox
 
-class TakePictureViewController: UIViewController {
+
+class weightScaleViewController: UIViewController, UITextFieldDelegate {
     
-    /*IBOutlet Field*/
-    @IBOutlet weak var takePictureButton: UIButton!
+    @IBOutlet weak var weightTextField: UITextField!
+    @IBOutlet weak var uploadButton: UIButton!
+    @IBOutlet weak var cameraView: UIView!
     
     var captureSession = AVCaptureSession()
     
@@ -26,35 +27,50 @@ class TakePictureViewController: UIViewController {
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
     var images: UIImage?
+
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-//        setUIToView()
+        setUIToView()
         setupCaptureSession()
         setupDevice()
         setupInputOutput()
         setupPreviewLayer()
         startRunningCaptureSession()
-        
-        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-
-        
     }
     
     /* Function: set all the UIs to the View */
-    func setUIToView() {
-        /* set background color: pink */
-//        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
-        let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+    func setUIToView(){
         
-        /* set the button (Login Button) to have a round border with the pink color.
-         * Also, set its text color to the white color */        
-        takePictureButton.layer.cornerRadius = 10
-        takePictureButton.backgroundColor = backgroundColor
-        takePictureButton.setTitleColor(UIColor.white, for: .normal)
+        /* set the weightTextField to have information string with the light gray color using a numberPad */
+        weightTextField.text = "Input Baby's Weight (Kg)"
+        weightTextField.textAlignment = NSTextAlignment.center
+        weightTextField.textColor = UIColor.lightGray
+        weightTextField.font =  UIFont(name: (weightTextField.font?.fontName)!, size: CGFloat(10.0))
+
+        /* set the tool bar Items (Cancel - Space - Done) */
+        let toolbar_LastDigit = UIToolbar();
+        toolbar_LastDigit.sizeToFit()
+        let doneButton_LastDigit = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done_cancel_numberPad));
+        let spaceButton_LastDigit = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton_LastDigit = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(done_cancel_numberPad));
+        toolbar_LastDigit.setItems([cancelButton_LastDigit,spaceButton_LastDigit,doneButton_LastDigit], animated: false)
+        
+        /* connect the date picker to the weightTextField */
+        weightTextField.keyboardType = UIKeyboardType.numberPad
+        weightTextField.inputAccessoryView = toolbar_LastDigit
+        
     }
     
+    /* create an object function for the cancel and done button in the number pad tool bar */
+    @objc func done_cancel_numberPad(){
+        /* set the numberPad has a specific weight formant to be put in the weightTextField */
+        self.view.endEditing(true)
+    }
+
+    
+
     /* Function: before starting taking a photo, set up the AVCaptureSession to take a photo during this view */
     func setupCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
@@ -114,7 +130,7 @@ class TakePictureViewController: UIViewController {
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
         cameraPreviewLayer?.frame = self.view.frame
-        self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
+        cameraView.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
     }
     
@@ -128,32 +144,40 @@ class TakePictureViewController: UIViewController {
      * WeightRecordlViewController */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "takePicture_Results_Segue" {
-            let previewVC = segue.destination as! ResultsRecordlViewController
-            previewVC.image = self.images
-        }
+//        if segue.identifier == "takePhoto" {
+//            let previewVC = segue.destination as! ResultsRecordlViewController
+//            previewVC.image = self.images
+//        }
         
     }
+    
+    /* From text field's delegate, whenever user click "return", then the keyboard will be dismiss from the view */
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        weightTextField.resignFirstResponder()
+        return true
+    }
 
-
-    /* Function: call the WeightRecordView with the AVCapturePhotoSettings by calling AVCapturePhotoCaptureDelegate */
-    @IBAction func takePicture_TouchUpInside(_ sender: Any) {
+    /* Function: when the user clicks the weight text field, then its information string would be gone */
+    @IBAction func weightTextField_TouchDown(_ sender: Any) {
         
-        let settings = AVCapturePhotoSettings()
-        
-        photoOutput?.capturePhoto(with: settings, delegate: self)
+        weightTextField.text = ""
 
     }
     
+    /* Function: when the user clicks the finish button, then user would go to the End View */
+    @IBAction func finishButton_TouchUpInside(_ sender: Any) {
+        performSegue(withIdentifier: "WeightScale_To_End_Segue", sender: nil)
+    }
 }
 
 /* Delegate: using the AVCapturePhotoCaptureDelegate to prepare the image for the imageview in the WeightRecordlViewController */
-extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
+extension weightScaleViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
             print(imageData)
             images = UIImage(data: imageData)
-            performSegue(withIdentifier: "takePicture_Results_Segue", sender: nil)
+//            performSegue(withIdentifier: "takePhoto", sender: nil)
         }
     }
 }
+
