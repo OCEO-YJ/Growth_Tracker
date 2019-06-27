@@ -418,6 +418,7 @@
                         <outlet property="signUpButton" destination="9cv-Cw-PZk" id="dRV-Te-GXi"/>
                         <outlet property="userNameLabel" destination="Qp6-Kl-Au2" id="3nM-0g-a8e"/>
                         <outlet property="userNameTextField" destination="gZr-2F-5eP" id="FPS-3K-aTw"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="signUpSegue" id="XH2-Zg-4nu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TTi-vJ-ONh" userLabel="First Responder" sceneMemberID="firstResponder"/>

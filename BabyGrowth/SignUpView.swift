@@ -116,6 +116,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     /* Function that passes all the information to the database (AWS)  */
     @IBAction func signUpButton_Clicked(_ sender: Any) {
+        performSegue(withIdentifier: "signUpSegue", sender: nil)
     }
 }
     
