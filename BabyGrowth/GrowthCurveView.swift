@@ -9,6 +9,7 @@
 import UIKit
 
 class GrowthCurveViewController: UIViewController {
+    
     @IBOutlet weak var growthCurveLabel: UILabel!
     @IBOutlet weak var graphImageView: UIImageView!
     @IBOutlet weak var homeButton: UIButton!
@@ -34,14 +35,4 @@ class GrowthCurveViewController: UIViewController {
         homeButton.setTitleColor(UIColor.white, for: .normal)
 
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
