@@ -10,37 +10,48 @@ import UIKit
 import AVFoundation
 import AudioToolbox
 
-class TakePictureViewController: UIViewController {
+class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     /*IBOutlet Field*/
     @IBOutlet weak var takePictureButton: UIButton!
+    @IBOutlet weak var camView: UIImageView!
     
-    var captureSession = AVCaptureSession()
-    
+
+    /* Device */
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
     
     var photoOutput: AVCapturePhotoOutput?
     
-    var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
+//    var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
     var images: UIImage?
+    
+    /* Aruco Set up */
+    private var captureSession: AVCaptureSession?
+    private var trackerSetup = false
+    private var arucoTracker: ArucoTracker?
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-//        setUIToView()
-        setupCaptureSession()
-        setupDevice()
-        setupInputOutput()
-        setupPreviewLayer()
-        startRunningCaptureSession()
-        
-        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-
-        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupTrackerIfNeeded()
+        captureSession?.startRunning()
+
+        self.view.bringSubviewToFront(takePictureButton)
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        captureSession?.stopRunning()
+    }
+
     
     /* Function: set all the UIs to the View */
     func setUIToView() {
@@ -57,72 +68,12 @@ class TakePictureViewController: UIViewController {
     
     /* Function: before starting taking a photo, set up the AVCaptureSession to take a photo during this view */
     func setupCaptureSession() {
-        captureSession.sessionPreset = AVCaptureSession.Preset.photo
+        captureSession?.sessionPreset = AVCaptureSession.Preset.photo
     }
     
-    /* Function: before starting taking a photo, set up the device and check if the user want to have front camera or back camera */
-    func setupDevice() {
-        
-        /* set up to find out the current device's camera and make it type as vide
-         * Also, set the position unknown to set up later to find which camera user wants to use */
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
-        
-        /* create the deviceDiscoverySession to get all the front and back camera */
-        let devices = deviceDiscoverySession.devices
-        
-        /* check the camera's postion and set up the camera */
-        for device in devices{
-            if device.position == AVCaptureDevice.Position.back {
-                print("back")
-                backCamera = device
-            } else if device.position == AVCaptureDevice.Position.front {
-                frontCamera = device
-                print("front")
-            }
-        }
-        
-        /* For now, just using a back side of camera */
-        currentCamera = backCamera
-    }
     
-    /* Function: before starting taking a photo, set up the Input (current using camera) and Output (how to make a image) */
-    func setupInputOutput() {
-        
-        do{
-            /* set the input as current camera, so the current camera would be in the current capture session
-             * session is like a thread */
-            let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
-            captureSession.addInput(captureDeviceInput)
-            /* set the output as a jpeg format and the output would be in the current caputure session */
-            photoOutput = AVCapturePhotoOutput()
-            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
-            captureSession.addOutput(photoOutput!)
-            
-        } catch{
-            print(error)
-        }
-        
-    }
     
-    /* Function: before starting taking a photo, set up the layer to get the camera view */
-    func setupPreviewLayer() {
-        
-        /* create the AVcaptureVideoPreviewLayer which is the current camera view
-         * it's gravity would be aspect fill with proper ratio and the orientation would be portrait
-         * and add the camera view to its current view in the TakePictureViewController */
-        cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-        cameraPreviewLayer?.frame = self.view.frame
-        self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
-        
-    }
     
-    /* Function: if all the sessions, device, input, and output is ready, then begin the session that contains
-     * all the information about the camera settings */
-    func startRunningCaptureSession() {
-        captureSession.startRunning()
-    }
     
     /* Function: before going to next view controller (WeightRecordViewController), pass the image to the
      * WeightRecordlViewController */
@@ -135,7 +86,6 @@ class TakePictureViewController: UIViewController {
         
     }
 
-
     /* Function: call the WeightRecordView with the AVCapturePhotoSettings by calling AVCapturePhotoCaptureDelegate */
     @IBAction func takePicture_TouchUpInside(_ sender: Any) {
         
@@ -145,6 +95,52 @@ class TakePictureViewController: UIViewController {
 
     }
     
+    func setupTrackerIfNeeded(){
+        if trackerSetup {return}
+        
+        let docsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path
+        let calibPath = "\(docsDir)/camera_parameters.yml"
+        
+        if !FileManager.default.fileExists(atPath: calibPath) {
+//            warnUser()
+
+        } else {
+            
+            arucoTracker = ArucoTracker(calibrationFile: calibPath, delegate: self)
+            
+            setupSession()
+            trackerSetup = true
+        }
+    }
+    
+    func setupSession() {
+        
+        guard let tracker = arucoTracker
+            else { fatalError("prepareSession() must be called after initializing the tracker") }
+        
+        currentCamera = AVCaptureDevice.default(for: .video)
+        guard currentCamera != nil, let videoInput = try? AVCaptureDeviceInput(device: currentCamera!)
+            else { fatalError("Device unavailable") }
+        
+        let videoOutput = AVCaptureVideoDataOutput()
+        
+        captureSession = AVCaptureSession()
+        captureSession?.sessionPreset = .iFrame960x540
+        
+        guard captureSession!.canAddInput(videoInput), captureSession!.canAddOutput(videoOutput)
+            else { fatalError("Cannot add video I/O to capture session") }
+        
+        photoOutput = AVCapturePhotoOutput()
+        photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
+        captureSession?.addOutput(photoOutput!)
+
+        captureSession?.addInput(videoInput)
+        captureSession?.addOutput(videoOutput)
+        
+        tracker.previewRotation = .cw90
+        tracker.prepare(for: videoOutput, orientation: .landscapeRight)
+    }
+
 }
 
 /* Delegate: using the AVCapturePhotoCaptureDelegate to prepare the image for the imageview in the WeightRecordlViewController */
@@ -157,3 +153,14 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
         }
     }
 }
+
+extension TakePictureViewController: ArucoTrackerDelegate {
+    
+    func arucoTracker(_ tracker: ArucoTracker, didDetect markers: [ArucoMarker], preview: UIImage?) {
+        DispatchQueue.main.async { [unowned self] in
+            
+            self.camView.image = preview
+        }
+    }
+}
+

@@ -214,6 +214,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gpj-sO-XLX">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -222,18 +225,23 @@
                             <constraint firstItem="ZIY-bW-kMt" firstAttribute="trailing" secondItem="VOr-zy-yrg" secondAttribute="trailing" constant="15" id="RLF-io-y8R"/>
                             <constraint firstItem="MTZ-jK-zSP" firstAttribute="leading" secondItem="ZIY-bW-kMt" secondAttribute="leading" constant="50" id="Yu3-Vg-Aq3"/>
                             <constraint firstItem="ZIY-bW-kMt" firstAttribute="trailing" secondItem="MTZ-jK-zSP" secondAttribute="trailing" constant="50" id="ZEA-FA-eLJ"/>
+                            <constraint firstItem="Gpj-sO-XLX" firstAttribute="leading" secondItem="ZIY-bW-kMt" secondAttribute="leading" id="gyV-uX-SfW"/>
+                            <constraint firstItem="Gpj-sO-XLX" firstAttribute="bottom" secondItem="ZIY-bW-kMt" secondAttribute="bottom" id="nn6-7O-yBT"/>
+                            <constraint firstItem="Gpj-sO-XLX" firstAttribute="trailing" secondItem="ZIY-bW-kMt" secondAttribute="trailing" id="teI-X4-HMw"/>
+                            <constraint firstItem="Gpj-sO-XLX" firstAttribute="top" secondItem="PqM-gt-UTt" secondAttribute="top" id="ynY-KQ-dIE"/>
                             <constraint firstItem="VOr-zy-yrg" firstAttribute="leading" secondItem="ZIY-bW-kMt" secondAttribute="leading" constant="15" id="z3u-6l-bBp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZIY-bW-kMt"/>
                     </view>
                     <connections>
+                        <outlet property="camView" destination="Gpj-sO-XLX" id="nhz-Tt-hRm"/>
                         <outlet property="takePictureButton" destination="MTZ-jK-zSP" id="UMa-5l-5MF"/>
                         <segue destination="gMK-FP-mbo" kind="presentation" identifier="takePicture_Results_Segue" id="kg1-nD-grc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9WR-95-CAu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1808" y="-934"/>
+            <point key="canvasLocation" x="1807.5" y="-934.85915492957747"/>
         </scene>
         <!--Results Recordl View Controller-->
         <scene sceneID="48E-HW-7Mt">
@@ -318,7 +326,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STEP2: Take a Picture of Weight Scale" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSx-Yn-Mhd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STEP2: Take a Picture of Weight Scale" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSx-Yn-Mhd">
                                 <rect key="frame" x="15" y="35" width="290" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -505,7 +513,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="kg1-nD-grc"/>
         <segue reference="aid-hM-Uud"/>
-        <segue reference="Rd6-Nc-QFH"/>
+        <segue reference="sCe-KK-dhf"/>
     </inferredMetricsTieBreakers>
 </document>
