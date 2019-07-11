@@ -22,9 +22,13 @@ class ResultsRecordlViewController: UIViewController, UITextFieldDelegate {
         
         /* set the imageview with the image that user took a photo from the TakePicture View Controller */
         photo.image = self.image
-
+        
         setUIToView()
+        
 
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     /* Function: set all the UIs to the View */

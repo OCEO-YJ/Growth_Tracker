@@ -12,11 +12,13 @@ import AudioToolbox
 
 class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
+
     /*IBOutlet Field*/
     @IBOutlet weak var takePictureButton: UIButton!
     @IBOutlet weak var camView: UIImageView!
     
-
+    @IBOutlet weak var stepLabel: UILabel!
+    
     /* Device */
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
@@ -32,8 +34,10 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     private var captureSession: AVCaptureSession?
     private var trackerSetup = false
     private var arucoTracker: ArucoTracker?
+    static var count = 0
     
     override func viewDidLoad() {
+
         
         super.viewDidLoad()
     }
@@ -42,8 +46,10 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         super.viewDidAppear(animated)
         setupTrackerIfNeeded()
         captureSession?.startRunning()
-
+        self.stepLabel.text = "STEP1: Taking Pictures of Baby"
+        self.stepLabel.textColor = UIColor.white
         self.view.bringSubviewToFront(takePictureButton)
+        self.view.bringSubviewToFront(stepLabel)
 
     }
     
@@ -64,6 +70,7 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         takePictureButton.layer.cornerRadius = 10
         takePictureButton.backgroundColor = backgroundColor
         takePictureButton.setTitleColor(UIColor.white, for: .normal)
+        
     }
     
     /* Function: before starting taking a photo, set up the AVCaptureSession to take a photo during this view */
@@ -107,7 +114,6 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         } else {
             
             arucoTracker = ArucoTracker(calibrationFile: calibPath, delegate: self)
-            
             setupSession()
             trackerSetup = true
         }
@@ -140,6 +146,7 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         tracker.previewRotation = .cw90
         tracker.prepare(for: videoOutput, orientation: .landscapeRight)
     }
+    
 
 }
 
@@ -156,11 +163,121 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
 
 extension TakePictureViewController: ArucoTrackerDelegate {
     
-    func arucoTracker(_ tracker: ArucoTracker, didDetect markers: [ArucoMarker], preview: UIImage?) {
+    func arucoTracker(_ tracker: ArucoTracker, didDetect markers: [ArucoMarker], preview: UIImage?, get: Bool) {
         DispatchQueue.main.async { [unowned self] in
             
             self.camView.image = preview
+            
+            if(get == true){
+                
+                self.stepLabel.text = "HOLD STILL YOUR PHONE FOR UNTIL TAKING A PICTURE"
+                self.stepLabel.font = UIFont(name: "Helvetica" ,size: 10.0)
+                self.stepLabel.textColor = UIColor.red
+                TakePictureViewController.count += 1
+
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+
+                if(TakePictureViewController.count == 25){
+                    self.takePictureButton.sendActions(for: .touchUpInside)
+                }
+                
+            }else{
+                self.stepLabel.text = "STEP1: Taking Pictures of Baby"
+                self.stepLabel.font = UIFont(name: "Helvetica" ,size: 13.0)
+                self.stepLabel.textColor = UIColor.white
+                TakePictureViewController.count = 0
+            }
+            
+            print(TakePictureViewController.count)
+
+            }
+        
+
+    }
+
+    
+
+    }
+//    func arucoTracker(_ tracker: ArucoTracker, didDetect markers: [ArucoMarker], preview: UIImage?) {
+//        DispatchQueue.main.async { [unowned self] in
+//
+//            self.camView.image = preview
+//        }
+//    }
+
+
+
+
+
+class TimerModel: NSObject {
+    static let sharedTimer: TimerModel = {
+        let timer = TimerModel()
+        return timer
+    }()
+    
+    var internalTimer: Timer?
+    var jobs = [() -> Void]()
+    
+    func startTimer(withInterval interval: Double, andJob job: @escaping () -> Void) {
+        if internalTimer != nil {
+            internalTimer?.invalidate()
+        }
+        jobs.append(job)
+        internalTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(doJob), userInfo: nil, repeats: true)
+    }
+    
+    func pauseTimer() {
+        guard internalTimer != nil else {
+            print("No timer active, start the timer before you stop it.")
+            return
+        }
+        internalTimer?.invalidate()
+    }
+    
+    func stopTimer() {
+        guard internalTimer != nil else {
+            print("No timer active, start the timer before you stop it.")
+            return
+        }
+        jobs = [()->()]()
+        internalTimer?.invalidate()
+    }
+    
+    @objc func doJob() {
+        guard jobs.count > 0 else { return }
+        for job in jobs {
+            job()
         }
     }
+    
 }
 
+class MyGlobalTimer: NSObject {
+    
+    
+    static let sharedTimer: MyGlobalTimer = {
+        let timer = MyGlobalTimer()
+        return timer
+    }()
+
+    var internalTimer: Timer?
+    
+    func startTimer(){
+        guard self.internalTimer != nil else {
+            fatalError("Timer already intialized, how did we get here with a singleton?!")
+        }
+        self.internalTimer = Timer.scheduledTimer(timeInterval: 1.0 /*seconds*/, target: self, selector: #selector(fireTimerAction), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimer(){
+        guard self.internalTimer != nil else {
+            fatalError("No timer active, start the timer before you stop it.")
+        }
+        self.internalTimer?.invalidate()
+    }
+    
+    @objc func fireTimerAction(sender: AnyObject?){
+        debugPrint("Timer Fired! \(String(describing: sender))")
+    }
+    
+}

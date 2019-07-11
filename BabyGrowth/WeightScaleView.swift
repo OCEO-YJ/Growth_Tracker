@@ -12,9 +12,11 @@ import AVFoundation
 
 class weightScaleViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var stepLabel: UILabel!
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var takePicButton: UIButton!
     
     var captureSession = AVCaptureSession()
     
@@ -32,12 +34,16 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        setUIToView()
+//        setUIToView()
         setupCaptureSession()
         setupDevice()
         setupInputOutput()
         setupPreviewLayer()
         startRunningCaptureSession()
+        
+        self.view.bringSubviewToFront(takePicButton)
+        self.view.bringSubviewToFront(stepLabel)
+
     }
     
     /* Function: set all the UIs to the View */
@@ -144,10 +150,10 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
      * WeightRecordlViewController */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-//        if segue.identifier == "takePhoto" {
-//            let previewVC = segue.destination as! ResultsRecordlViewController
-//            previewVC.image = self.images
-//        }
+        if segue.identifier == "WeightScale_To_Results_Segue" {
+            let previewVC = segue.destination as! WeightResultsRecordViewController
+            previewVC.image = self.images
+        }
         
     }
     
@@ -156,6 +162,8 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
         weightTextField.resignFirstResponder()
         return true
     }
+    
+
 
     /* Function: when the user clicks the weight text field, then its information string would be gone */
     @IBAction func weightTextField_TouchDown(_ sender: Any) {
@@ -166,7 +174,10 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
     
     /* Function: when the user clicks the finish button, then user would go to the End View */
     @IBAction func finishButton_TouchUpInside(_ sender: Any) {
-        performSegue(withIdentifier: "WeightScale_To_End_Segue", sender: nil)
+        let settings = AVCapturePhotoSettings()
+        
+        photoOutput?.capturePhoto(with: settings, delegate: self)
+
     }
 }
 
@@ -176,7 +187,7 @@ extension weightScaleViewController: AVCapturePhotoCaptureDelegate {
         if let imageData = photo.fileDataRepresentation(){
             print(imageData)
             images = UIImage(data: imageData)
-//            performSegue(withIdentifier: "takePhoto", sender: nil)
+            performSegue(withIdentifier: "WeightScale_To_Results_Segue", sender: nil)
         }
     }
 }

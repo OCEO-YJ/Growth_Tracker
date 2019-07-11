@@ -34,9 +34,10 @@
 		591933D022D1774B0045AF57 /* debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 591933A022D1774B0045AF57 /* debug.cpp */; };
 		591933D122D1774B0045AF57 /* dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 591933A322D1774B0045AF57 /* dictionary.cpp */; };
 		591933D222D1774B0045AF57 /* markermap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 591933A422D1774B0045AF57 /* markermap.cpp */; };
-		5947EA3C22C575EC00261C31 /* weightScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3B22C575EC00261C31 /* weightScaleView.swift */; };
+		5947EA3C22C575EC00261C31 /* WeightScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3B22C575EC00261C31 /* WeightScaleView.swift */; };
 		5947EA3E22C57A6C00261C31 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3D22C57A6C00261C31 /* EndViewController.swift */; };
 		5947EA4222C57B8500261C31 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA4122C57B8500261C31 /* LoginView.swift */; };
+		59E887DB22D623E000B82214 /* WeightResultsRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E887DA22D623E000B82214 /* WeightResultsRecordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -413,9 +414,10 @@
 		591933A322D1774B0045AF57 /* dictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dictionary.cpp; sourceTree = "<group>"; };
 		591933A422D1774B0045AF57 /* markermap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = markermap.cpp; sourceTree = "<group>"; };
 		5919341B22D3BEFF0045AF57 /* ArucoDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArucoDemo-Bridging-Header.h"; sourceTree = "<group>"; };
-		5947EA3B22C575EC00261C31 /* weightScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weightScaleView.swift; sourceTree = "<group>"; };
+		5947EA3B22C575EC00261C31 /* WeightScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightScaleView.swift; sourceTree = "<group>"; };
 		5947EA3D22C57A6C00261C31 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		5947EA4122C57B8500261C31 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		59E887DA22D623E000B82214 /* WeightResultsRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightResultsRecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,7 +476,8 @@
 				5906314422C2B7130070EA4B /* GrowthCurveView.swift */,
 				5906314622C2B7480070EA4B /* TakePictureView.swift */,
 				5906314822C2C12A0070EA4B /* ResultsRecordView.swift */,
-				5947EA3B22C575EC00261C31 /* weightScaleView.swift */,
+				5947EA3B22C575EC00261C31 /* WeightScaleView.swift */,
+				59E887DA22D623E000B82214 /* WeightResultsRecordView.swift */,
 				5947EA3D22C57A6C00261C31 /* EndViewController.swift */,
 				5906314022C1BE100070EA4B /* Main.storyboard */,
 				5906311E22C16D900070EA4B /* BabyGrowthTests */,
@@ -1353,6 +1356,7 @@
 				591933C622D1774B0045AF57 /* posetracker.cpp in Sources */,
 				5947EA3E22C57A6C00261C31 /* EndViewController.swift in Sources */,
 				591933CE22D1774B0045AF57 /* ippe.cpp in Sources */,
+				59E887DB22D623E000B82214 /* WeightResultsRecordView.swift in Sources */,
 				591933CC22D1774B0045AF57 /* dictionary_based.cpp in Sources */,
 				591933C522D1774B0045AF57 /* ArucoWrapper.mm in Sources */,
 				591933CF22D1774B0045AF57 /* markerdetector.cpp in Sources */,
@@ -1360,7 +1364,7 @@
 				591933D122D1774B0045AF57 /* dictionary.cpp in Sources */,
 				591933C822D1774B0045AF57 /* marker.cpp in Sources */,
 				591933CB22D1774B0045AF57 /* cameraparameters.cpp in Sources */,
-				5947EA3C22C575EC00261C31 /* weightScaleView.swift in Sources */,
+				5947EA3C22C575EC00261C31 /* WeightScaleView.swift in Sources */,
 				591933C922D1774B0045AF57 /* cvdrawingutils.cpp in Sources */,
 				5906314322C1C24B0070EA4B /* Helper.swift in Sources */,
 				591933A522D1774B0045AF57 /* Calibrator.mm in Sources */,
