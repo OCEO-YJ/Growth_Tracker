@@ -29,7 +29,7 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
     var images: UIImage?
-
+    var userIdentificationArray: [String] = []
     
     override func viewDidLoad() {
         
@@ -45,37 +45,7 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
         self.view.bringSubviewToFront(stepLabel)
 
     }
-    
-    /* Function: set all the UIs to the View */
-    func setUIToView(){
         
-        /* set the weightTextField to have information string with the light gray color using a numberPad */
-        weightTextField.text = "Input Baby's Weight (Kg)"
-        weightTextField.textAlignment = NSTextAlignment.center
-        weightTextField.textColor = UIColor.lightGray
-        weightTextField.font =  UIFont(name: (weightTextField.font?.fontName)!, size: CGFloat(10.0))
-
-        /* set the tool bar Items (Cancel - Space - Done) */
-        let toolbar_LastDigit = UIToolbar();
-        toolbar_LastDigit.sizeToFit()
-        let doneButton_LastDigit = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done_cancel_numberPad));
-        let spaceButton_LastDigit = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton_LastDigit = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(done_cancel_numberPad));
-        toolbar_LastDigit.setItems([cancelButton_LastDigit,spaceButton_LastDigit,doneButton_LastDigit], animated: false)
-        
-        /* connect the date picker to the weightTextField */
-        weightTextField.keyboardType = UIKeyboardType.numberPad
-        weightTextField.inputAccessoryView = toolbar_LastDigit
-        
-    }
-    
-    /* create an object function for the cancel and done button in the number pad tool bar */
-    @objc func done_cancel_numberPad(){
-        /* set the numberPad has a specific weight formant to be put in the weightTextField */
-        self.view.endEditing(true)
-    }
-
-    
 
     /* Function: before starting taking a photo, set up the AVCaptureSession to take a photo during this view */
     func setupCaptureSession() {
@@ -91,6 +61,7 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
         
         /* create the deviceDiscoverySession to get all the front and back camera */
         let devices = deviceDiscoverySession.devices
+        
         
         /* check the camera's postion and set up the camera */
         for device in devices{
@@ -153,6 +124,9 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "WeightScale_To_Results_Segue" {
             let previewVC = segue.destination as! WeightResultsRecordViewController
             previewVC.image = self.images
+            previewVC.userIdentificationArray = userIdentificationArray
+            
+            
         }
         
     }

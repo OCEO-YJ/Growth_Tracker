@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Photos
 import AudioToolbox
 
 class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -28,7 +29,10 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     
 //    var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
-    var images: UIImage?
+//    var images: UIImage?
+    var images = [UIImage]()
+    var imageCount = 0
+    var userIdentificationArray: [String] = []
     
     /* Aruco Set up */
     private var captureSession: AVCaptureSession?
@@ -44,6 +48,9 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        imageCount = 0
+        images.removeAll(keepingCapacity: false)
+        
         setupTrackerIfNeeded()
         captureSession?.startRunning()
         self.stepLabel.text = "STEP1: Taking Pictures of Baby"
@@ -86,19 +93,37 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
      * WeightRecordlViewController */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "takePicture_Results_Segue" {
-            let previewVC = segue.destination as! ResultsRecordlViewController
-            previewVC.image = self.images
-        }
+//        if segue.identifier == "takePic_To_Results" {
+//            let previewVC = segue.destination as! ResultsViewController
+//            previewVC.images = self.images
+//            previewVC.userIdentificationArray = userIdentificationArray
+//        }
         
+        
+        if segue.identifier == "next" {
+            let previewVC = segue.destination as! ImageViewController
+            previewVC.images = self.images
+            previewVC.userIdentificationArray = userIdentificationArray
+        }
+
     }
 
     /* Function: call the WeightRecordView with the AVCapturePhotoSettings by calling AVCapturePhotoCaptureDelegate */
     @IBAction func takePicture_TouchUpInside(_ sender: Any) {
         
         let settings = AVCapturePhotoSettings()
-        
+        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
+        let previewFormat = [
+            kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
+            kCVPixelBufferWidthKey as String: 160,
+            kCVPixelBufferHeightKey as String: 160
+        ]
+        settings.previewPhotoFormat = previewFormat
+
         photoOutput?.capturePhoto(with: settings, delegate: self)
+//        photoOutput?.capturePhoto(with: settings, delegate: self)
+//        photoOutput?.capturePhoto(with: settings, delegate: self)
+
 
     }
     
@@ -109,7 +134,7 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         let calibPath = "\(docsDir)/camera_parameters.yml"
         
         if !FileManager.default.fileExists(atPath: calibPath) {
-//            warnUser()
+            warnUser()
 
         } else {
             
@@ -118,6 +143,26 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
             trackerSetup = true
         }
     }
+    func showCalibrator(_ sender: Any) {
+
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let calibratorViewController = storyBoard.instantiateViewController(withIdentifier: "calibrator") as! CalibratorViewController
+        self.present(calibratorViewController, animated: true, completion: nil)
+
+    }
+
+    
+    func warnUser() {
+        let alert = UIAlertController(
+            title: "Warning",
+            message: "Camera calibration file (camera_parameters.yml) not found in Documents folder; this is necessary for accurate pose detection.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Calibrate", style: .default, handler: showCalibrator))
+        alert.addAction(UIAlertAction(title: "Ignore", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
     
     func setupSession() {
         
@@ -147,6 +192,17 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         tracker.prepare(for: videoOutput, orientation: .landscapeRight)
     }
     
+//    func rotated() {
+//
+//        if UIDevice.current.orientation.isLandscape {
+//            print("Landscape")
+//            if UIDevice.current.orientation.isFlat {
+//                print("Flat")
+//            } else {
+//                print("Portrait")
+//            }
+//    }
+//    }
 
 }
 
@@ -154,9 +210,26 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
 extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
-            print(imageData)
-            images = UIImage(data: imageData)
-            performSegue(withIdentifier: "takePicture_Results_Segue", sender: nil)
+            
+            
+//            PHPhotoLibrary.requestAuthorization { status in
+//                guard status == .authorized else { return }
+//
+//                PHPhotoLibrary.shared().performChanges({
+//                    // Add the captured photo's file data as the main resource for the Photos asset.
+//                    let creationRequest = PHAssetCreationRequest.forAsset()
+//                    creationRequest.addResource(with: .photo, data: photo.fileDataRepresentation()!, options: nil)
+//                }, completionHandler: nil)
+//            }
+            
+            imageCount += 1
+            print(UIImage(data: imageData)?.size as Any)
+            let image = UIImage(data: imageData)!
+            self.images.append(image)
+                        
+            if(imageCount > 2){
+                performSegue(withIdentifier: "next", sender: nil)
+            }
         }
     }
 }
@@ -167,7 +240,6 @@ extension TakePictureViewController: ArucoTrackerDelegate {
         DispatchQueue.main.async { [unowned self] in
             
             self.camView.image = preview
-            
             if(get == true){
                 
                 self.stepLabel.text = "HOLD STILL YOUR PHONE FOR UNTIL TAKING A PICTURE"
@@ -179,6 +251,8 @@ extension TakePictureViewController: ArucoTrackerDelegate {
 
                 if(TakePictureViewController.count == 25){
                     self.takePictureButton.sendActions(for: .touchUpInside)
+                    TakePictureViewController.count = 0
+
                 }
                 
             }else{
@@ -187,8 +261,6 @@ extension TakePictureViewController: ArucoTrackerDelegate {
                 self.stepLabel.textColor = UIColor.white
                 TakePictureViewController.count = 0
             }
-            
-            print(TakePictureViewController.count)
 
             }
         
@@ -198,86 +270,5 @@ extension TakePictureViewController: ArucoTrackerDelegate {
     
 
     }
-//    func arucoTracker(_ tracker: ArucoTracker, didDetect markers: [ArucoMarker], preview: UIImage?) {
-//        DispatchQueue.main.async { [unowned self] in
-//
-//            self.camView.image = preview
-//        }
-//    }
 
 
-
-
-
-class TimerModel: NSObject {
-    static let sharedTimer: TimerModel = {
-        let timer = TimerModel()
-        return timer
-    }()
-    
-    var internalTimer: Timer?
-    var jobs = [() -> Void]()
-    
-    func startTimer(withInterval interval: Double, andJob job: @escaping () -> Void) {
-        if internalTimer != nil {
-            internalTimer?.invalidate()
-        }
-        jobs.append(job)
-        internalTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(doJob), userInfo: nil, repeats: true)
-    }
-    
-    func pauseTimer() {
-        guard internalTimer != nil else {
-            print("No timer active, start the timer before you stop it.")
-            return
-        }
-        internalTimer?.invalidate()
-    }
-    
-    func stopTimer() {
-        guard internalTimer != nil else {
-            print("No timer active, start the timer before you stop it.")
-            return
-        }
-        jobs = [()->()]()
-        internalTimer?.invalidate()
-    }
-    
-    @objc func doJob() {
-        guard jobs.count > 0 else { return }
-        for job in jobs {
-            job()
-        }
-    }
-    
-}
-
-class MyGlobalTimer: NSObject {
-    
-    
-    static let sharedTimer: MyGlobalTimer = {
-        let timer = MyGlobalTimer()
-        return timer
-    }()
-
-    var internalTimer: Timer?
-    
-    func startTimer(){
-        guard self.internalTimer != nil else {
-            fatalError("Timer already intialized, how did we get here with a singleton?!")
-        }
-        self.internalTimer = Timer.scheduledTimer(timeInterval: 1.0 /*seconds*/, target: self, selector: #selector(fireTimerAction), userInfo: nil, repeats: true)
-    }
-    
-    func stopTimer(){
-        guard self.internalTimer != nil else {
-            fatalError("No timer active, start the timer before you stop it.")
-        }
-        self.internalTimer?.invalidate()
-    }
-    
-    @objc func fireTimerAction(sender: AnyObject?){
-        debugPrint("Timer Fired! \(String(describing: sender))")
-    }
-    
-}

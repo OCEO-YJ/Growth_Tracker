@@ -23,10 +23,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var loginButton: UIButton!
     
     let datePicker = UIDatePicker()
-    
     let numberPad = UIKeyboardType.numberPad
-
-
     
     override func viewDidLoad() {
         
@@ -35,12 +32,18 @@ class ViewController: UIViewController, UITextFieldDelegate{
         
     }
     
+//    let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
+//    loginButton.backgroundColor = backgroundColor
+//    loginButton.isEnabled = false
+
+    
     /* Function: set all the UIs to the View */
     func setUIToView() {
         
         /* set background color: pink */
 //        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
         let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+        let backgroundColorButton = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
 
         /* set the all the label's texts have a bold and size to 10 and pink color*/
         userNameLabel.textColor = backgroundColor
@@ -49,13 +52,16 @@ class ViewController: UIViewController, UITextFieldDelegate{
         lastDigitLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 10)
         babyDateLabel.textColor = backgroundColor
         babyDateLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 10)
-
         
         /* set the button (Login Button) to have a round border with the pink color.
          * Also, set its text color to the white color */
         loginButton.layer.cornerRadius = 10
-        loginButton.backgroundColor = backgroundColor
+        loginButton.backgroundColor = backgroundColorButton
         loginButton.setTitleColor(UIColor.white, for: .normal)
+        loginButton.isEnabled = false
+        
+        [userNameTextField, lastDigitTextField, babyDateTextField].forEach({ $0.addTarget(self, action: #selector(editingChanged), for: .editingDidEnd) })
+
         
         /* by using a helper swift file, set the all the text field to have a underline without border */
         userNameTextField.underlined()
@@ -65,9 +71,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
         /* set the tool bar Items (Cancel - Space - Done) */
         let toolbar_LastDigit = UIToolbar();
         toolbar_LastDigit.sizeToFit()
-        let doneButton_LastDigit = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done_cancel_numberPad));
+        let doneButton_LastDigit = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done_numberPad));
         let spaceButton_LastDigit = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton_LastDigit = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(done_cancel_numberPad));
+        let cancelButton_LastDigit = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel_numberPad));
         toolbar_LastDigit.setItems([cancelButton_LastDigit,spaceButton_LastDigit,doneButton_LastDigit], animated: false)
         
         /* connect the date picker to the weightTextField */
@@ -119,11 +125,21 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @objc func cancelDatePicker(){
         
         /* when user clicked, then the date picker will be dismissed */
+        babyDateTextField.text = ""
         self.view.endEditing(true)
     }
     
+    
     /* create an object function for the cancel and done button in the number pad tool bar */
-    @objc func done_cancel_numberPad(){
+    @objc func cancel_numberPad(){
+        
+        lastDigitTextField.text = ""
+        self.view.endEditing(true)
+    }
+
+    
+    /* create an object function for the cancel and done button in the number pad tool bar */
+    @objc func done_numberPad(){
         
         self.view.endEditing(true)
     }
@@ -132,7 +148,40 @@ class ViewController: UIViewController, UITextFieldDelegate{
     /* Function that moves to the Login View when user click the button */
     @IBAction func loginButton_TouchUpInside(_ sender: Any) {
         performSegue(withIdentifier: "Main_To_Login_Segue", sender: self)
+
     }
+    
+    
+    @objc func editingChanged(_ textField: UITextField) {
+        
+        if ((!userNameTextField.text!.isEmpty) && (!lastDigitTextField.text!.isEmpty) && (!babyDateTextField.text!.isEmpty)) && (lastDigitTextField.text!.count == 4){
+            
+            let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+            loginButton.backgroundColor = backgroundColor
+            loginButton.isEnabled = true
+            
+        }else{
+            
+            
+            let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
+            loginButton.backgroundColor = backgroundColor
+            loginButton.isEnabled = false
+        }
+    }
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "Main_To_Login_Segue" {
+            let previewVC = segue.destination as! LoginViewController
+            
+            let userIdentificationArray: [String] = [userNameTextField.text!, lastDigitTextField.text!, babyDateTextField.text!]
+            
+            previewVC.userIdentificationArray = userIdentificationArray
+        }
+        
+    }
+
     
 }
 

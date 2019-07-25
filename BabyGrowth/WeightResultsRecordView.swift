@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class WeightResultsRecordViewController: UIViewController {
     
@@ -14,8 +16,16 @@ class WeightResultsRecordViewController: UIViewController {
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var blurryButton: UIButton!
     @IBOutlet weak var finishButton: UIButton!
+    @IBOutlet weak var progressView: UIProgressView!
+    
     var image: UIImage!
-    @IBOutlet weak var uploadButton: UIButton!
+    var userIdentificationArray: [String] = []
+    var docRefUser: DocumentReference!
+    var docRefDate: DocumentReference!
+    
+    var successCount = 0
+
+
     
     @IBOutlet weak var photo: UIImageView!
     
@@ -23,8 +33,16 @@ class WeightResultsRecordViewController: UIViewController {
         super.viewDidLoad()
         setUIToView()
         photo.image = self.image
+        
+        progressView.isHidden = true
+        
+        let userFilePath = getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])
 
-        // Do any additional setup after loading the view.
+        
+        docRefUser = Firestore.firestore().collection("growthTrackerData").document("\(userFilePath)")
+ 
+        docRefDate = Firestore.firestore().collection("growthTrackerData").document("\(userFilePath)").collection("Dates").document("\(getCurrentDateAndTime())")
+
     }
     
     func setUIToView(){
@@ -37,15 +55,12 @@ class WeightResultsRecordViewController: UIViewController {
         finishButton.layer.cornerRadius = 10
         finishButton.backgroundColor = backgroundColor
         finishButton.setTitleColor(UIColor.white, for: .normal)
+        finishButton.isHidden = true
         
         blurryButton.layer.cornerRadius = 10
         blurryButton.backgroundColor = backgroundColor
         blurryButton.setTitleColor(UIColor.white, for: .normal)
         
-        uploadButton.layer.cornerRadius = 10
-        uploadButton.backgroundColor = backgroundColor
-        uploadButton.setTitleColor(UIColor.white, for: .normal)
-
     
     /* set the weightTextField to have information string with the light gray color using a numberPad */
     weightTextField.text = "Input Baby's Weight (Kg)"
@@ -56,9 +71,9 @@ class WeightResultsRecordViewController: UIViewController {
     /* set the tool bar Items (Cancel - Space - Done) */
     let toolbar_LastDigit = UIToolbar();
     toolbar_LastDigit.sizeToFit()
-    let doneButton_LastDigit = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done_cancel_numberPad));
+    let doneButton_LastDigit = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done_numberPad));
     let spaceButton_LastDigit = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-    let cancelButton_LastDigit = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(done_cancel_numberPad));
+    let cancelButton_LastDigit = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel_numberPad));
     toolbar_LastDigit.setItems([cancelButton_LastDigit,spaceButton_LastDigit,doneButton_LastDigit], animated: false)
     
     /* connect the date picker to the weightTextField */
@@ -68,14 +83,41 @@ class WeightResultsRecordViewController: UIViewController {
     }
     
     /* create an object function for the cancel and done button in the number pad tool bar */
-    @objc func done_cancel_numberPad(){
+    @objc func done_numberPad(){
         /* set the numberPad has a specific weight formant to be put in the weightTextField */
+        
+        if weightTextField.text?.isEmpty ?? true {
+            finishButton.isHidden = true
+
+        } else {
+            finishButton.isHidden = false
+        }
+        self.view.endEditing(true)
+    }
+
+    
+    @objc func cancel_numberPad(){
+        /* set the numberPad has a specific weight formant to be put in the weightTextField */
+        weightTextField.text = ""
+        
+        if weightTextField.text?.isEmpty ?? true {
+            finishButton.isHidden = true
+        }
+
         self.view.endEditing(true)
     }
 
 
     @IBAction func textField_TouchDown(_ sender: Any) {
         weightTextField.text = ""
+        
+//        if ((userNameTextField.text!.isEmpty) && (lastDigitTextField.text!.isEmpty) && (babyDateTextField.text!.isEmpty)) {
+//            print("empty")
+//        }else{
+//            print("X empty")
+//
+//        }
+
 
     }
     
@@ -91,9 +133,117 @@ class WeightResultsRecordViewController: UIViewController {
 
         
     }
-    @IBAction func finish_Button_TouchUpInside(_ sender: Any) {
-        performSegue(withIdentifier: "Results_To_End_Segue", sender: nil)
+    
+    func getCurrentDateAndTime() -> String {
+        
+        let dateFormatter : DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
+        return dateString
     }
+    
+    func getCurrentMonth() -> String {
+        
+        let dateFormatter : DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd"
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "Results_To_End_Segue" {
+            let previewVC = segue.destination as! EndViewController
+            previewVC.userIdentificationArray = userIdentificationArray
+        }
+        
+    }
+
+    
+
+    @IBAction func finish_Button_TouchUpInside(_ sender: Any) {
+        
+        progressView.isHidden = false
+        
+        if finishButton.title(for: .normal) == "UPLOAD"{
+            
+            finishButton.isEnabled = false
+            
+            let userBabyWeight = weightTextField.text!
+            
+            let userIdentificationToSave:[String: Any] = ["User Name": userIdentificationArray[0], "User Identification": getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])]
+            let userDataToSave:[String: Any] = ["Baby_Weight_(LB)": userBabyWeight, "Last Time Input Data": getCurrentMonth()]
+            
+            docRefUser.setData(userIdentificationToSave) { (error) in
+                if let error = error {
+                    print("Got an error: \(error.localizedDescription)")
+                } else{
+                    print("Success")
+                }
+            }
+            
+            docRefDate.setData(userDataToSave) { (error) in
+                if let error = error {
+                    print("Got an error: \(error.localizedDescription)")
+                } else{
+
+                    print("Success")
+                }
+            }
+            
+            
+            let userFilePath = getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])
+            
+            let reference = "\(userFilePath)/WeightScalePhoto/\(weightTextField.text!)kg ::: \(getCurrentDateAndTime()).jpg"
+            let uploadRef = Storage.storage().reference(withPath: reference)
+            guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
+            let uploadMetadata = StorageMetadata.init()
+            uploadMetadata.contentType = "image/jpeg"
+            
+            let taskReference = uploadRef.putData(imageData, metadata: uploadMetadata) { (downloadMetadata, error) in
+                if let error = error {
+                    print("error: \(error.localizedDescription)")
+                    return
+                }
+                print("Success")
+            }
+            
+            taskReference.observe(.progress) { (snapshot) in
+                guard let pct = snapshot.progress?.fractionCompleted else { return }
+                self.progressView.progress = Float(pct)
+                
+                if self.progressView.progress == 1.0 {
+                    self.finishButton.isEnabled = true
+
+                    self.finishButton.setTitle("FINISH", for: .normal)
+
+                }
+                
+            }
+
+
+        }
+        
+        else{
+                performSegue(withIdentifier: "Results_To_End_Segue", sender: nil)
+                
+
+        }
+        
+        
+        
+    }
+    
+    func getUserFilePath(userName: String, userLastDigit: String) -> String {
+        
+        return "\(userName)\(userLastDigit)"
+        
+    }
+
     
     /*
     // MARK: - Navigation

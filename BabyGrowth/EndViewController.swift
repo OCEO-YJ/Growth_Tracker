@@ -13,6 +13,8 @@ class EndViewController: UIViewController {
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var viewGrowthCurveButton: UIButton!
     
+    var userIdentificationArray: [String] = []
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -36,6 +38,21 @@ class EndViewController: UIViewController {
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "End_To_Login_Segue" {
+            let previewVC = segue.destination as! LoginViewController
+            previewVC.userIdentificationArray = userIdentificationArray
+        }
+        
+        if segue.identifier == "End_To_GrowthCurve_Segue" {
+            let previewVC = segue.destination as! GrowthCurveViewController
+            previewVC.userIdentificationArray = userIdentificationArray
+        }
+
+        
+    }
+
     /* Function: goes to login view */
     @IBAction func homeButton_TouchUpInside(_ sender: Any) {
         performSegue(withIdentifier: "End_To_Login_Segue", sender: nil)
