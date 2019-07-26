@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 
 class ViewController: UIViewController, UITextFieldDelegate{
     
@@ -25,11 +25,18 @@ class ViewController: UIViewController, UITextFieldDelegate{
     let datePicker = UIDatePicker()
     let numberPad = UIKeyboardType.numberPad
     
+//    var handle: AuthStateDidChangeListenerHandle?
+
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         setUIToView()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
     }
     
 //    let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)

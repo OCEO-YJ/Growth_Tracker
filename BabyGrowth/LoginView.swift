@@ -8,6 +8,9 @@
 
 import UIKit
 import MessageUI
+import FirebaseFirestore
+import Firebase
+
 
 class LoginViewController: UIViewController, MFMessageComposeViewControllerDelegate {
 
@@ -16,16 +19,30 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
     @IBOutlet weak var takePictureButton: UIButton!
     @IBOutlet weak var growthCurveButton: UIButton!
     @IBOutlet weak var sendTextMessage: UIButton!
+    @IBOutlet weak var lastCheckInHeader: UILabel!
     
     var userIdentificationArray: [String] = []
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUIToView()
-        
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if Reachability.isConnectedToNetwork(){
+            setUIToView()
+            getData()
+
+        }else{
+        
+            takePictureButton.isHidden = true
+            growthCurveButton.isHidden = true
+            lastCheckInLabel.text = ""
+            lastCheckInHeader.textColor = .red
+            lastCheckInHeader.text = "Need Internet Connection!"
+        }
+    }
     /* Function: set all the UIs to the View */
     func setUIToView() {
         
@@ -63,6 +80,36 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
         }
 
     }
+    
+    func getUserFilePath(userName: String, userLastDigit: String) -> String {
+        
+        return "\(userName)\(userLastDigit)"
+        
+    }
+
+    func getData() {
+        let userFilePath = getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])
+        
+        let cloudRef =  Firestore.firestore().collection("growthTrackerData").document("\(userFilePath)").collection("Dates")
+        
+        
+        cloudRef.getDocuments { (querySnapshot, err) in
+            if let err = err{
+                print("error: \(err.localizedDescription)")
+            }else{
+                if querySnapshot!.documents.count == 0{
+
+                     self.lastCheckInLabel.text =  "First time to use the App"
+                }else{
+                    let myData = querySnapshot!.documents[querySnapshot!.documents.count - 1].documentID
+
+                    self.lastCheckInLabel.text = myData
+                }
+                
+            }
+        }
+    }
+
 
     /* Function: if the user clicks the view growth curve button, then the user would go the growth curve view */
     @IBAction func viewGrowthCurveButton_TouchUpInside(_ sender: Any) {
@@ -89,3 +136,5 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
     }
     
 }
+
+

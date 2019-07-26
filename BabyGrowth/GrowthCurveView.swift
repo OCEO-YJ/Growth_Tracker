@@ -68,6 +68,9 @@ class GrowthCurveViewController: UIViewController {
                 print("error: \(err.localizedDescription)")
             }else{
                 for document in querySnapshot!.documents {
+//                    print(document.documentID)
+                    print("\(document.documentID) => \(document.data())")
+//
                     let myData = document.data()
                     let babyWeight = myData["Baby_Weight_(LB)"] as? String ?? ""
                     let insert = Double(babyWeight)

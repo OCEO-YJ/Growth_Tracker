@@ -17,15 +17,12 @@ class WeightResultsRecordViewController: UIViewController {
     @IBOutlet weak var blurryButton: UIButton!
     @IBOutlet weak var finishButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     var image: UIImage!
     var userIdentificationArray: [String] = []
     var docRefUser: DocumentReference!
     var docRefDate: DocumentReference!
-    
-    var successCount = 0
-
-
     
     @IBOutlet weak var photo: UIImageView!
     
@@ -34,7 +31,7 @@ class WeightResultsRecordViewController: UIViewController {
         setUIToView()
         photo.image = self.image
         
-        progressView.isHidden = true
+
         
         let userFilePath = getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])
 
@@ -48,8 +45,7 @@ class WeightResultsRecordViewController: UIViewController {
     func setUIToView(){
         
         //        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
-        let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
-        
+        let backgroundColor = buttonEnabledColorToPurple()
         /* set the button (Login Button) to have a round border with the pink color.
          * Also, set its text color to the white color */
         finishButton.layer.cornerRadius = 10
@@ -60,6 +56,13 @@ class WeightResultsRecordViewController: UIViewController {
         blurryButton.layer.cornerRadius = 10
         blurryButton.backgroundColor = backgroundColor
         blurryButton.setTitleColor(UIColor.white, for: .normal)
+        
+        progressView.isHidden = true
+        
+        indicator.isHidden = true
+        indicator.color = backgroundColor
+        indicator.transform = CGAffineTransform(scaleX: 2, y: 2)
+
         
     
     /* set the weightTextField to have information string with the light gray color using a numberPad */
@@ -167,11 +170,18 @@ class WeightResultsRecordViewController: UIViewController {
 
     @IBAction func finish_Button_TouchUpInside(_ sender: Any) {
         
-        progressView.isHidden = false
+//        progressView.isHidden = false
+
+        indicator.isHidden = false
+        
+        finishButton.isEnabled = false
+        finishButton.backgroundColor = buttonDisEnabledColorToPurple()
+        
+        blurryButton.isEnabled = false
+        blurryButton.backgroundColor = buttonDisEnabledColorToPurple()
         
         if finishButton.title(for: .normal) == "UPLOAD"{
             
-            finishButton.isEnabled = false
             
             let userBabyWeight = weightTextField.text!
             
@@ -213,30 +223,43 @@ class WeightResultsRecordViewController: UIViewController {
             }
             
             taskReference.observe(.progress) { (snapshot) in
-                guard let pct = snapshot.progress?.fractionCompleted else { return }
-                self.progressView.progress = Float(pct)
-                
-                if self.progressView.progress == 1.0 {
-                    self.finishButton.isEnabled = true
-
-                    self.finishButton.setTitle("FINISH", for: .normal)
-
-                }
+                self.indicator.startAnimating()
+//                guard let pct = snapshot.progress?.fractionCompleted else { return }
+//                self.progressView.progress = Float(pct)
+//
+//                print(self.progressView.progress)
+//                if self.progressView.progress == 1.0 {
+//
+//                    self.finishButton.backgroundColor = self.buttonEnabledColorToPurple()
+//                    self.finishButton.isEnabled = true
+//                    self.finishButton.setTitle("FINISH", for: .normal)
+//                }
                 
             }
+            taskReference.observe(.success) { (snapshot) in
+                self.indicator.stopAnimating()
+                self.finishButton.backgroundColor = self.buttonEnabledColorToPurple()
+                self.finishButton.isEnabled = true
+                self.finishButton.setTitle("NEXT", for: .normal)
 
-
+            }
         }
         
         else{
                 performSegue(withIdentifier: "Results_To_End_Segue", sender: nil)
-                
-
         }
         
         
         
     }
+    func buttonEnabledColorToPurple() -> UIColor {
+        return UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+    }
+    
+    func buttonDisEnabledColorToPurple() -> UIColor {
+        return UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
+    }
+
     
     func getUserFilePath(userName: String, userLastDigit: String) -> String {
         

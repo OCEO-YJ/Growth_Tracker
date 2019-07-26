@@ -9,11 +9,13 @@
 import UIKit
 import Firebase
 
+
 class ImageViewController: UIViewController {
 
 //    @IBOutlet weak var contentView: UIImageView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
 
     var images =  [UIImage]()
@@ -22,13 +24,12 @@ class ImageViewController: UIViewController {
     
     var currentViewControllerIndex = 0
     var userIdentificationArray: [String] = []
-
-    static var add = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configurePage()
-        setUIToView() 
+        setUIToView()
+        
 
         // Do any additional setup after loading the view.
     }
@@ -36,7 +37,7 @@ class ImageViewController: UIViewController {
     func setUIToView() {
         
         //        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
-        let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+        let backgroundColor = buttonEnabledColorToPurple()
         
         /* set the button (Login Button) to have a round border with the pink color.
          * Also, set its text color to the white color */
@@ -49,6 +50,11 @@ class ImageViewController: UIViewController {
         blurryButton.setTitleColor(UIColor.white, for: .normal)
         
         progressView.isHidden = true
+        
+        indicator.isHidden = true
+        indicator.color = buttonEnabledColorToPurple()
+        indicator.transform = CGAffineTransform(scaleX: 2, y: 2)
+            
     }
 
     
@@ -68,6 +74,7 @@ class ImageViewController: UIViewController {
 //        pageViewController.view.backgroundColor = UIColor.green
         contentView.addSubview(pageViewController.view)
         contentView.bringSubviewToFront(progressView)
+        contentView.bringSubviewToFront(indicator)
         
         let views: [String: Any] = ["pageView": pageViewController.view]
         
@@ -166,7 +173,15 @@ class ImageViewController: UIViewController {
 
     @IBAction func nextButton_TouchUpInside(_ sender: Any) {
         
-        progressView.isHidden = false
+        
+//        progressView.isHidden = false
+        indicator.isHidden = false
+        
+        nextButton.backgroundColor = buttonDisEnabledColorToPurple()
+        nextButton.isEnabled = false
+        
+        blurryButton.isEnabled = false
+        blurryButton.backgroundColor = buttonDisEnabledColorToPurple()
         
         if nextButton.title(for: .normal) == "UPLOAD"{
             let userFilePath = getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])
@@ -194,15 +209,28 @@ class ImageViewController: UIViewController {
                 }
                 
                 taskReference.observe(.progress) { (snapshot) in
-                    guard let pct = snapshot.progress?.fractionCompleted else { return }
-                    self.progressView.progress = Float(pct)
-                    print(self.progressView.progress)
-                    if(self.progressView.progress == 1.0){
-                        self.nextButton.setTitle("NEXT", for: .normal)
-
-                    }
+                    self.indicator.startAnimating()
+                    
+//                    guard let pct = snapshot.progress?.fractionCompleted else { return }
+//
+//                    self.progressView.progress = Float(pct)
+//                    if(self.progressView.progress == 1.0){
+//                        self.nextButton.backgroundColor = self.buttonEnabledColorToPurple()
+//                        self.nextButton.isEnabled = true
+//                        self.nextButton.setTitle("NEXT", for: .normal)
+//                    }
 
                 }
+                
+                taskReference.observe(.success) { (snapshot) in
+                    print("Sucess")
+                    self.indicator.stopAnimating()
+                    self.nextButton.backgroundColor = self.buttonEnabledColorToPurple()
+                    self.nextButton.isEnabled = true
+                    self.nextButton.setTitle("NEXT", for: .normal)
+
+                }
+ 
             }
             
         }else{
@@ -213,6 +241,15 @@ class ImageViewController: UIViewController {
         
 
     }
+    
+    func buttonEnabledColorToPurple() -> UIColor {
+        return UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+    }
+    
+    func buttonDisEnabledColorToPurple() -> UIColor {
+        return UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
+    }
+
     
 }
 

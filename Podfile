@@ -11,6 +11,8 @@ target 'GrowthTracker' do
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
   pod 'Charts'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
 
   target 'GrowthTrackerTests' do
     inherit! :search_paths

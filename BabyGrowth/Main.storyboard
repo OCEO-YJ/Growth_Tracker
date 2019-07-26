@@ -155,9 +155,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2AH-ZY-OCM">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uw" translatesAutoresizingMaskIntoConstraints="NO" id="2AH-ZY-OCM">
                                 <rect key="frame" x="50" y="70" width="314" height="150"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="BRA-0s-hbQ"/>
                                 </constraints>
@@ -168,8 +167,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019/05/20 18:23PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEt-iO-3YW">
-                                <rect key="frame" x="80" y="264.66666666666669" width="254" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEt-iO-3YW">
+                                <rect key="frame" x="80" y="264.66666666666669" width="254" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -231,6 +230,7 @@
                     <connections>
                         <outlet property="LoginImageView" destination="2AH-ZY-OCM" id="0O6-jH-cgI"/>
                         <outlet property="growthCurveButton" destination="thl-xY-QyT" id="nUP-eq-c9T"/>
+                        <outlet property="lastCheckInHeader" destination="WK3-rm-tbw" id="0bs-or-yuj"/>
                         <outlet property="lastCheckInLabel" destination="fEt-iO-3YW" id="Uc3-vk-LjC"/>
                         <outlet property="sendTextMessage" destination="2cm-Mo-vbl" id="pde-3l-VLs"/>
                         <outlet property="takePictureButton" destination="9mk-Z9-h3F" id="57o-6Y-aUe"/>
@@ -354,11 +354,16 @@
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="74S-yD-YDR">
                                         <rect key="frame" x="35" y="324.66666666666669" width="314" height="2"/>
                                     </progressView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3aL-pt-Ifc">
+                                        <rect key="frame" x="182" y="315.66666666666669" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="74S-yD-YDR" firstAttribute="centerX" secondItem="A9n-CE-WHF" secondAttribute="centerX" id="3HL-Kz-soP"/>
+                                    <constraint firstItem="3aL-pt-Ifc" firstAttribute="centerY" secondItem="A9n-CE-WHF" secondAttribute="centerY" id="I8Z-ZA-na8"/>
                                     <constraint firstAttribute="trailing" secondItem="74S-yD-YDR" secondAttribute="trailing" constant="35" id="PQQ-mi-Ql5"/>
+                                    <constraint firstItem="3aL-pt-Ifc" firstAttribute="centerX" secondItem="A9n-CE-WHF" secondAttribute="centerX" id="PvZ-Ai-bVD"/>
                                     <constraint firstItem="74S-yD-YDR" firstAttribute="leading" secondItem="A9n-CE-WHF" secondAttribute="leading" constant="35" id="jmx-RA-vXv"/>
                                     <constraint firstItem="74S-yD-YDR" firstAttribute="centerY" secondItem="A9n-CE-WHF" secondAttribute="centerY" id="lHp-FU-SVn"/>
                                 </constraints>
@@ -400,6 +405,7 @@
                     <connections>
                         <outlet property="blurryButton" destination="m4x-2m-0ls" id="T6a-tF-ro5"/>
                         <outlet property="contentView" destination="A9n-CE-WHF" id="GRH-Px-20U"/>
+                        <outlet property="indicator" destination="3aL-pt-Ifc" id="OV3-0s-YEz"/>
                         <outlet property="nextButton" destination="tA3-l5-Hih" id="NI2-yT-LRq"/>
                         <outlet property="progressView" destination="74S-yD-YDR" id="boh-pz-2R7"/>
                         <segue destination="eKl-rz-Ovl" kind="presentation" identifier="Results_To_Weight_Segue" id="5Na-Yd-ccc"/>
@@ -643,6 +649,9 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="crr-Mr-cFA">
                                 <rect key="frame" x="55" y="377" width="304" height="2"/>
                             </progressView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="CC9-E7-iNy">
+                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -655,12 +664,14 @@
                             <constraint firstItem="yHr-FD-Rjo" firstAttribute="top" secondItem="MaO-Qm-D28" secondAttribute="bottom" constant="15" id="Q0V-Vw-5Oh"/>
                             <constraint firstItem="cxY-Kc-i4j" firstAttribute="bottom" secondItem="LzW-UZ-bkn" secondAttribute="bottom" constant="67" id="Rje-da-RxQ"/>
                             <constraint firstItem="sG3-Ni-FNG" firstAttribute="top" secondItem="LzW-UZ-bkn" secondAttribute="bottom" constant="8" id="UV8-kX-qBh"/>
+                            <constraint firstItem="CC9-E7-iNy" firstAttribute="centerX" secondItem="Jii-gL-vUY" secondAttribute="centerX" id="VsH-k5-S6k"/>
                             <constraint firstItem="cxY-Kc-i4j" firstAttribute="trailing" secondItem="yHr-FD-Rjo" secondAttribute="trailing" constant="16" id="VtT-q6-vje"/>
                             <constraint firstItem="crr-Mr-cFA" firstAttribute="leading" secondItem="Jii-gL-vUY" secondAttribute="leadingMargin" constant="35" id="alh-sC-nrV"/>
                             <constraint firstItem="cxY-Kc-i4j" firstAttribute="trailing" secondItem="MaO-Qm-D28" secondAttribute="trailing" constant="15" id="cmw-Be-ar2"/>
                             <constraint firstItem="LzW-UZ-bkn" firstAttribute="top" secondItem="cxY-Kc-i4j" secondAttribute="top" constant="89" id="miR-oR-u2f"/>
                             <constraint firstItem="MaO-Qm-D28" firstAttribute="top" secondItem="cxY-Kc-i4j" secondAttribute="top" constant="15" id="nw7-Jx-AMj"/>
                             <constraint firstItem="crr-Mr-cFA" firstAttribute="centerY" secondItem="cxY-Kc-i4j" secondAttribute="centerY" id="pH5-XX-PGF"/>
+                            <constraint firstItem="CC9-E7-iNy" firstAttribute="centerY" secondItem="Jii-gL-vUY" secondAttribute="centerY" id="x7y-Hh-Qqw"/>
                             <constraint firstItem="yHr-FD-Rjo" firstAttribute="leading" secondItem="cxY-Kc-i4j" secondAttribute="leading" constant="15" id="xe3-ZX-cUp"/>
                             <constraint firstItem="cxY-Kc-i4j" firstAttribute="trailing" secondItem="Gjw-YT-rIK" secondAttribute="trailing" constant="14" id="yZj-Qa-YLA"/>
                         </constraints>
@@ -669,6 +680,7 @@
                     <connections>
                         <outlet property="blurryButton" destination="sG3-Ni-FNG" id="FDJ-UC-HAh"/>
                         <outlet property="finishButton" destination="Gjw-YT-rIK" id="XII-AA-Xqx"/>
+                        <outlet property="indicator" destination="CC9-E7-iNy" id="YUC-lP-xk0"/>
                         <outlet property="photo" destination="LzW-UZ-bkn" id="K0u-SH-jS3"/>
                         <outlet property="progressView" destination="crr-Mr-cFA" id="2sd-XR-REb"/>
                         <outlet property="stepLabel" destination="MaO-Qm-D28" id="ezc-HA-Qcs"/>
@@ -735,6 +747,7 @@
     </scenes>
     <resources>
         <image name="email" width="512" height="512"/>
+        <image name="uw" width="1024" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="R98-gU-O7r"/>

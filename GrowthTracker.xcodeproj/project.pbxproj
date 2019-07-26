@@ -38,7 +38,7 @@
 		593F6CBB22E9E32400ED69D2 /* ResultsRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBA22E9E32400ED69D2 /* ResultsRecordView.swift */; };
 		593F6CBD22E9EBDA00ED69D2 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */; };
 		593F6CBF22E9EDA800ED69D2 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */; };
-		593F6CC522EA7CD500ED69D2 /* camera_parameters.yml in Resources */ = {isa = PBXBuildFile; fileRef = 593F6CC422EA7CD500ED69D2 /* camera_parameters.yml */; };
+		593F6CC722EA7EA100ED69D2 /* camera_parameters.yml in Resources */ = {isa = PBXBuildFile; fileRef = 593F6CC622EA7EA100ED69D2 /* camera_parameters.yml */; };
 		5947EA3C22C575EC00261C31 /* WeightScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3B22C575EC00261C31 /* WeightScaleView.swift */; };
 		5947EA3E22C57A6C00261C31 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3D22C57A6C00261C31 /* EndViewController.swift */; };
 		5947EA4222C57B8500261C31 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA4122C57B8500261C31 /* LoginView.swift */; };
@@ -432,7 +432,7 @@
 		593F6CBA22E9E32400ED69D2 /* ResultsRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRecordView.swift; sourceTree = "<group>"; };
 		593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		593F6CC422EA7CD500ED69D2 /* camera_parameters.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = camera_parameters.yml; path = ../../../../../../Desktop/camera_parameters.yml; sourceTree = "<group>"; };
+		593F6CC622EA7EA100ED69D2 /* camera_parameters.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = camera_parameters.yml; path = ../../../../../../Desktop/camera_parameters.yml; sourceTree = "<group>"; };
 		5947EA3B22C575EC00261C31 /* WeightScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightScaleView.swift; sourceTree = "<group>"; };
 		5947EA3D22C57A6C00261C31 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		5947EA4122C57B8500261C31 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -507,6 +507,7 @@
 				5906314422C2B7130070EA4B /* GrowthCurveView.swift */,
 				5906314622C2B7480070EA4B /* TakePictureView.swift */,
 				59DD6AA722E241BA0050C94E /* ResultsViewController.swift */,
+				593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */,
 				593F6CBA22E9E32400ED69D2 /* ResultsRecordView.swift */,
 				5947EA3B22C575EC00261C31 /* WeightScaleView.swift */,
 				59E887DA22D623E000B82214 /* WeightResultsRecordView.swift */,
@@ -522,7 +523,6 @@
 				5919341B22D3BEFF0045AF57 /* ArucoDemo-Bridging-Header.h */,
 				5904DA1E22DEC9B300C08770 /* Utilities.swift */,
 				593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */,
-				593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */,
 			);
 			path = BabyGrowth;
 			sourceTree = "<group>";
@@ -1264,7 +1264,7 @@
 		593F6CC322EA7C9300ED69D2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				593F6CC422EA7CD500ED69D2 /* camera_parameters.yml */,
+				593F6CC622EA7EA100ED69D2 /* camera_parameters.yml */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1390,7 +1390,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				593F6CC522EA7CD500ED69D2 /* camera_parameters.yml in Resources */,
+				593F6CC722EA7EA100ED69D2 /* camera_parameters.yml in Resources */,
 				5906314122C1BE100070EA4B /* Main.storyboard in Resources */,
 				598F363C22E9D41500251719 /* GoogleService-Info.plist in Resources */,
 				5906311522C16D900070EA4B /* LaunchScreen.storyboard in Resources */,
