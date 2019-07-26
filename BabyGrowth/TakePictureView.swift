@@ -130,15 +130,18 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     func setupTrackerIfNeeded(){
         if trackerSetup {return}
         
-        let docsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path
-        let calibPath = "\(docsDir)/camera_parameters.yml"
+//        let docsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path
+//        let calibPath = "\(docsDir)/camera_parameters.yml"
         
-        if !FileManager.default.fileExists(atPath: calibPath) {
+        
+        let stringPath = Bundle.main.path(forResource: "camera_parameters", ofType: "yml")!
+ 
+        if !FileManager.default.fileExists(atPath: stringPath) {
             warnUser()
 
         } else {
             
-            arucoTracker = ArucoTracker(calibrationFile: calibPath, delegate: self)
+            arucoTracker = ArucoTracker(calibrationFile: stringPath, delegate: self)
             setupSession()
             trackerSetup = true
         }

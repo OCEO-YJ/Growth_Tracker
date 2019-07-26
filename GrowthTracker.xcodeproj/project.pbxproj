@@ -38,6 +38,7 @@
 		593F6CBB22E9E32400ED69D2 /* ResultsRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBA22E9E32400ED69D2 /* ResultsRecordView.swift */; };
 		593F6CBD22E9EBDA00ED69D2 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */; };
 		593F6CBF22E9EDA800ED69D2 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */; };
+		593F6CC522EA7CD500ED69D2 /* camera_parameters.yml in Resources */ = {isa = PBXBuildFile; fileRef = 593F6CC422EA7CD500ED69D2 /* camera_parameters.yml */; };
 		5947EA3C22C575EC00261C31 /* WeightScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3B22C575EC00261C31 /* WeightScaleView.swift */; };
 		5947EA3E22C57A6C00261C31 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3D22C57A6C00261C31 /* EndViewController.swift */; };
 		5947EA4222C57B8500261C31 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA4122C57B8500261C31 /* LoginView.swift */; };
@@ -431,6 +432,7 @@
 		593F6CBA22E9E32400ED69D2 /* ResultsRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRecordView.swift; sourceTree = "<group>"; };
 		593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		593F6CC422EA7CD500ED69D2 /* camera_parameters.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = camera_parameters.yml; path = ../../../../../../Desktop/camera_parameters.yml; sourceTree = "<group>"; };
 		5947EA3B22C575EC00261C31 /* WeightScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightScaleView.swift; sourceTree = "<group>"; };
 		5947EA3D22C57A6C00261C31 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		5947EA4122C57B8500261C31 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 		5906310922C16D8E0070EA4B /* BabyGrowth */ = {
 			isa = PBXGroup;
 			children = (
+				593F6CC322EA7C9300ED69D2 /* Resources */,
 				5906310A22C16D8E0070EA4B /* AppDelegate.swift */,
 				5906310C22C16D8E0070EA4B /* ViewController.swift */,
 				5947EA4122C57B8500261C31 /* LoginView.swift */,
@@ -1258,6 +1261,14 @@
 			path = markerlabelers;
 			sourceTree = "<group>";
 		};
+		593F6CC322EA7C9300ED69D2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				593F6CC422EA7CD500ED69D2 /* camera_parameters.yml */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C4382BB2B336F512B5EAA6F9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1379,6 +1390,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				593F6CC522EA7CD500ED69D2 /* camera_parameters.yml in Resources */,
 				5906314122C1BE100070EA4B /* Main.storyboard in Resources */,
 				598F363C22E9D41500251719 /* GoogleService-Info.plist in Resources */,
 				5906311522C16D900070EA4B /* LaunchScreen.storyboard in Resources */,
