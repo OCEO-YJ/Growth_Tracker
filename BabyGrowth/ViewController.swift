@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class ViewController: UIViewController, UITextFieldDelegate{
     
@@ -15,37 +16,64 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var lastDigitLabel: UILabel!
     @IBOutlet weak var babyDateLabel: UILabel!
+    @IBOutlet weak var accountLabel: UILabel!
     
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var lastDigitTextField: UITextField!
     @IBOutlet weak var babyDateTextField: UITextField!
     
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
     
     let datePicker = UIDatePicker()
     let numberPad = UIKeyboardType.numberPad
     
 //    var handle: AuthStateDidChangeListenerHandle?
-
+    let dispatchgroup = DispatchGroup()
+    
+    var user = User()
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        setUIToView()
-        
+        setUIToBeforeStart(set: true)
+
+
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        authenticationUserAndConfigureView()
 
+        
     }
     
-//    let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
-//    loginButton.backgroundColor = backgroundColor
-//    loginButton.isEnabled = false
+    func setAlertToLogin(){
+        let alertView = UIAlertController(title: "Wrong Username or Password", message: "Please check your Username or Password again", preferredStyle: .alert)
+        
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            /*******************************/
+        }))
+        
+        self.present(alertView, animated: true)
+        
+    }
 
-    
+
+    func setAlertToExit(){
+        let alertView = UIAlertController(title: "Internet Connection Problem", message: "Please check you Internet Connection to run the App properly", preferredStyle: .alert)
+        
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            /*******************************/
+        }))
+        
+        self.present(alertView, animated: true)
+
+    }
     /* Function: set all the UIs to the View */
     func setUIToView() {
+        
+//        babyDateLabel.isHidden = true
+//        babyDateTextField.isHidden = true
         
         /* set background color: pink */
 //        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
@@ -69,7 +97,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
         
         [userNameTextField, lastDigitTextField, babyDateTextField].forEach({ $0.addTarget(self, action: #selector(editingChanged), for: .editingDidEnd) })
 
-        
+        signUpButton.setTitleColor(backgroundColor, for: .normal)
+
         /* by using a helper swift file, set the all the text field to have a underline without border */
         userNameTextField.underlined()
         lastDigitTextField.underlined()
@@ -151,11 +180,84 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.view.endEditing(true)
     }
 
+    @objc func showAlert(){
+        
+        
 
+    }
+    @IBAction func signUpButton_TouchUpInside(_ sender: Any) {
+        
+        performSegue(withIdentifier: "Main_To_SignUp_Segue", sender: self)
+    }
+    
     /* Function that moves to the Login View when user click the button */
     @IBAction func loginButton_TouchUpInside(_ sender: Any) {
-        performSegue(withIdentifier: "Main_To_Login_Segue", sender: self)
+        
+        if Reachability.isConnectedToNetwork() {
+            
+            let userEmail = "\(self.userNameTextField.text!)@growthTracker.com"
+            let userPW = "\(self.lastDigitTextField.text!)-\(babyDateTextField.text!)"
+            
+            Auth.auth().signIn(withEmail: userEmail, password: userPW) { (result, error) in
+                if let error = error {
+                    self.setAlertToLogin()
+                    print("Failed to login in with an error:", error.localizedDescription)
+                    return
+                }
+                self.user.name = self.userNameTextField.text!
+                self.user.lastDigit = self.lastDigitTextField.text!
+                self.user.babyBirth = self.babyDateTextField.text!
+                
+                print("Successfully logged in ")
+                self.performSegue(withIdentifier: "Main_To_Login_Segue", sender: self)
+                
+            }
 
+        }else {
+            setAlertToExit()
+        }
+
+    }
+    
+    func setUIToBeforeStart(set: Bool){
+        userNameLabel.isHidden = set
+        userNameTextField.isHidden = set
+        
+        lastDigitLabel.isHidden = set
+        lastDigitTextField.isHidden = set
+        
+        babyDateLabel.isHidden = set
+        babyDateTextField.isHidden = set
+        
+        accountLabel.isHidden = set
+        signUpButton.isHidden = set
+        
+        loginButton.isHidden = set
+        
+    }
+    
+    
+    func authenticationUserAndConfigureView() {
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if let user = user {
+                print("logged in ")
+                self.dispatchgroup.enter()
+                getUser(with: user.uid, completion: { (user) in
+                    self.user = user
+                    self.dispatchgroup.leave()
+
+                })
+                self.dispatchgroup.notify(queue: .main, execute: {
+
+                    self.performSegue(withIdentifier: "Main_To_Login_Segue", sender: self)
+                })
+            } else {
+                self.setUIToView()
+                self.setUIToBeforeStart(set: false)
+                print("not logged in ")
+            }
+        }
     }
     
     
@@ -169,27 +271,46 @@ class ViewController: UIViewController, UITextFieldDelegate{
             
         }else{
             
-            
             let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
             loginButton.backgroundColor = backgroundColor
             loginButton.isEnabled = false
+
         }
     }
 
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "Main_To_Login_Segue" {
+
             let previewVC = segue.destination as! LoginViewController
             
-            let userIdentificationArray: [String] = [userNameTextField.text!, lastDigitTextField.text!, babyDateTextField.text!]
-            
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = self.user
         }
         
     }
 
     
+}
+
+
+
+func getUser(with userID: String, completion: @escaping ((_ user: User) -> Void)) {
+    Database.database().reference().child("users").child(userID).observeSingleEvent(of: .value) { (snapshot) in
+        // Get user value
+        let value = snapshot.value as? [String: Any]
+        let username = value?["username"] as? String ?? ""
+        let userDigit = value?["lastDigit"] as? String ?? ""
+        let userDate = value?["babyDate"] as? String ?? ""
+        
+        var user = User()
+        user.name = username
+        user.lastDigit = userDigit
+        user.babyBirth = userDate
+        
+        DispatchQueue.main.async {
+            completion(user)
+        }
+    }
 }
 
 

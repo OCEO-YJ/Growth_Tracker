@@ -59,10 +59,10 @@ class CalibratorViewController: UIViewController, AVCaptureVideoDataOutputSample
         counterLabel.textAlignment = .right
         counterLabel.sizeToFit()
         
-        rotatedBar.setup(
-            with: [thisTextDown, startStopButton, undistortButton, counterLabel],
-            insets: (dx: 0, dy: 10)
-        )
+//        rotatedBar.setup(
+//            with: [thisTextDown, startStopButton, undistortButton, counterLabel],
+//            insets: (dx: 0, dy: 10)
+//        )
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -29,7 +29,8 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
     var images: UIImage?
-    var userIdentificationArray: [String] = []
+    var user = User()
+//    var userIdentificationArray: [String] = []
     
     override func viewDidLoad() {
         
@@ -124,7 +125,7 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "WeightScale_To_Results_Segue" {
             let previewVC = segue.destination as! WeightResultsRecordViewController
             previewVC.image = self.images
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = user
             
             
         }

@@ -13,7 +13,7 @@ class EndViewController: UIViewController {
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var viewGrowthCurveButton: UIButton!
     
-    var userIdentificationArray: [String] = []
+    var user = User()
     
     override func viewDidLoad() {
         
@@ -21,12 +21,13 @@ class EndViewController: UIViewController {
         setUIToView()
 
     }
+    
     /* Function: set all the UIs to the View */
     func setUIToView(){
         
         /* set background color: pink */
         //        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
-        let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+        let backgroundColor = helper.buttonEnabledColorToPurple()
 
         homeButton.layer.cornerRadius = 10
         homeButton.backgroundColor = backgroundColor
@@ -42,12 +43,12 @@ class EndViewController: UIViewController {
         
         if segue.identifier == "End_To_Login_Segue" {
             let previewVC = segue.destination as! LoginViewController
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = user
         }
         
         if segue.identifier == "End_To_GrowthCurve_Segue" {
             let previewVC = segue.destination as! GrowthCurveViewController
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = user
         }
 
         

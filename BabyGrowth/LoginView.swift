@@ -20,44 +20,32 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
     @IBOutlet weak var growthCurveButton: UIButton!
     @IBOutlet weak var sendTextMessage: UIButton!
     @IBOutlet weak var lastCheckInHeader: UILabel!
+    @IBOutlet weak var signOutButton: UIButton!
     
-    var userIdentificationArray: [String] = []
+    var user = User()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if Reachability.isConnectedToNetwork(){
             setUIToView()
-            getData()
+            getData(user: user)
 
-        }else{
-        
-            takePictureButton.isHidden = true
-            growthCurveButton.isHidden = true
-            lastCheckInLabel.text = ""
-            lastCheckInHeader.textColor = .red
-            lastCheckInHeader.text = "Need Internet Connection!"
-        }
     }
     /* Function: set all the UIs to the View */
     func setUIToView() {
         
         /* set background color: pink */
         //        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
-        let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
         
         /* set the button (Login Button) to have a round border with the pink color.
          * Also, set its text color to the white color */
         takePictureButton.layer.cornerRadius = 10
-        takePictureButton.backgroundColor = backgroundColor
+        takePictureButton.backgroundColor = helper.buttonEnabledColorToPurple()
         takePictureButton.setTitleColor(UIColor.white, for: .normal)
         
         growthCurveButton.layer.cornerRadius = 10
-        growthCurveButton.backgroundColor = backgroundColor
+        growthCurveButton.backgroundColor = helper.buttonEnabledColorToPurple()
         growthCurveButton.setTitleColor(UIColor.white, for: .normal)
         
     }
@@ -71,24 +59,19 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
         
         if segue.identifier == "Login_To_TakePicrue_Segue" {
             let previewVC = segue.destination as! TakePictureViewController
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = user
         }
         
         if segue.identifier == "Login_To_GrowthCurve_Segue" {
             let previewVC = segue.destination as! GrowthCurveViewController
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = user
         }
 
     }
-    
-    func getUserFilePath(userName: String, userLastDigit: String) -> String {
-        
-        return "\(userName)\(userLastDigit)"
-        
-    }
 
-    func getData() {
-        let userFilePath = getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])
+    func getData(user: User) {
+        
+        let userFilePath = helper.getUserFilePath(userName: user.name!, userLastDigit: user.lastDigit!)
         
         let cloudRef =  Firestore.firestore().collection("growthTrackerData").document("\(userFilePath)").collection("Dates")
         
@@ -119,7 +102,17 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func signOutButton_TouchUpInSide(_ sender: Any) {
+        do{
+            try Auth.auth().signOut()
+            performSegue(withIdentifier: "Login_To_Main_Segue", sender: nil)
 
+        }catch let error {
+            print("Failed to sign out->\(error.localizedDescription)")
+        }
+    }
+    
     @IBAction func sendTextMessage_TouchUpInSide(_ sender: Any) {
         
         if MFMessageComposeViewController.canSendText() == true {

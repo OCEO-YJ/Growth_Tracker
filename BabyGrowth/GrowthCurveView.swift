@@ -17,17 +17,16 @@ class GrowthCurveViewController: UIViewController {
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var graphView: LineChartView!
 
-    
-    var userIdentificationArray: [String] = []
+    var user = User()
     
     var numbers : [Double] = [] //This is where we are going to store all the numbers. This can be a set of numbers that come from a Realm database, Core data, External API's or where ever else
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getData()
+        getData(user: user)
         setUIToView()
-        // Do any additional setup after loading the view.
+        
     }
     
     func updateGraph(){
@@ -52,14 +51,13 @@ class GrowthCurveViewController: UIViewController {
         
         
         graphView.data = data //finally - it adds the chart data to the chart and causes an update
-//        graphView.data = data
         
         graphView.chartDescription?.text = "Baby Growth Graph" // Here we set the description for the graph
         
     }
 
-    func getData(){
-        let userFilePath = getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])
+    func getData(user: User){
+        let userFilePath = helper.getUserFilePath(userName:  user.name!, userLastDigit: user.lastDigit!)
 
         let cloudRef =  Firestore.firestore().collection("growthTrackerData").document("\(userFilePath)").collection("Dates")
 
@@ -68,34 +66,27 @@ class GrowthCurveViewController: UIViewController {
                 print("error: \(err.localizedDescription)")
             }else{
                 for document in querySnapshot!.documents {
-//                    print(document.documentID)
+                    
                     print("\(document.documentID) => \(document.data())")
 //
                     let myData = document.data()
                     let babyWeight = myData["Baby_Weight_(LB)"] as? String ?? ""
                     let insert = Double(babyWeight)
                     self.numbers.append(insert!)
+                    
                 }
                 self.updateGraph()
-
             }
         }
         
     }
-
-    
-    
     /* Function: set all the UIs to the View */
     func setUIToView() {
-        
-        /* set background color: pink */
-//        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
-        let backgroundColor = UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
         
         /* set the button (Login Button) to have a round border with the pink color.
          * Also, set its text color to the white color */
         homeButton.layer.cornerRadius = 10
-        homeButton.backgroundColor = backgroundColor
+        homeButton.backgroundColor = helper.buttonEnabledColorToPurple()
         homeButton.setTitleColor(UIColor.white, for: .normal)
 
     }
@@ -108,15 +99,9 @@ class GrowthCurveViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GrowthCurve_To_Login_Segue" {
             let previewVC = segue.destination as! LoginViewController
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = self.user
         }
 
     }
     
-    func getUserFilePath(userName: String, userLastDigit: String) -> String {
-        
-        return "\(userName)\(userLastDigit)"
-        
-    }
-
 }

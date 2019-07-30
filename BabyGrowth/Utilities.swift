@@ -11,34 +11,70 @@ import SystemConfiguration
 
 class RotatedBar: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
     private var insets: (dx: CGFloat, dy: CGFloat)?
     
     func setup(with subviews:[UIView], insets: (dx: CGFloat, dy: CGFloat)? = nil) {
+        
+        
         let stackView = UIStackView(arrangedSubviews: subviews)
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.transform = CGAffineTransform(rotationAngle: .pi/2)
+        stackView.center = self.center
         self.addSubview(stackView)
         self.insets = insets
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        subviews.first?.frame = bounds.insetBy(dx: insets?.dx ?? 0, dy: insets?.dy ?? 0)
-        subviews.first?.center = CGPoint(x: frame.width/2, y: frame.height/2)
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        subviews.first?.frame = bounds.insetBy(dx: insets?.dx ?? 0, dy: insets?.dy ?? 0)
+//        subviews.first?.center = CGPoint(x: frame.width/2, y: frame.height/2)
+//    }
 
 }
 
+public class helper {
+    
+    class func getUserFilePath(userName: String, userLastDigit: String) -> String {
+        
+        return "\(userName)\(userLastDigit)"
+        
+    }
+    
+    class func getCurrentDateAndTime() -> String {
+        
+        let dateFormatter : DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    class func getCurrentMonth() -> String {
+        
+        let dateFormatter : DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd"
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    class func buttonEnabledColorToPurple() -> UIColor {
+        return UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
+    }
+    
+    class func buttonDisEnabledColorToPurple() -> UIColor {
+        return UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
+    }
+    
+    class func getUserIdentification(userName: String, userLastDigit: String, babyBirth: String) -> String {
+        
+        return "\(userName)-\(userLastDigit)-\(babyBirth)"
+        
+    }
+
+}
 
 public class Reachability {
     
@@ -75,3 +111,18 @@ public class Reachability {
         
     }
 }
+
+extension UITextField {
+    
+    func underlined(){
+        let border = CALayer()
+        let width = CGFloat(1.0)
+        border.borderColor = UIColor.lightGray.cgColor
+        border.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: self.frame.size.height)
+        border.borderWidth = width
+        self.layer.addSublayer(border)
+        self.layer.masksToBounds = true
+        
+    }
+}
+

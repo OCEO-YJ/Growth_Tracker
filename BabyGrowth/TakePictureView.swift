@@ -27,12 +27,11 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     
     var photoOutput: AVCapturePhotoOutput?
     
-//    var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
-//    var images: UIImage?
     var images = [UIImage]()
     var imageCount = 0
-    var userIdentificationArray: [String] = []
+    
+    var user = User()
     
     /* Aruco Set up */
     private var captureSession: AVCaptureSession?
@@ -41,22 +40,19 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     static var count = 0
     
     override func viewDidLoad() {
-
-        
         super.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         imageCount = 0
         images.removeAll(keepingCapacity: false)
         
         setupTrackerIfNeeded()
         captureSession?.startRunning()
-        self.stepLabel.text = "STEP1: Taking Pictures of Baby"
-        self.stepLabel.textColor = UIColor.white
-        self.view.bringSubviewToFront(takePictureButton)
-        self.view.bringSubviewToFront(stepLabel)
+        
+         setUIToView()
 
     }
     
@@ -78,6 +74,14 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         takePictureButton.backgroundColor = backgroundColor
         takePictureButton.setTitleColor(UIColor.white, for: .normal)
         
+        self.stepLabel.text = "STEP1: Taking Pictures of Baby"
+        self.stepLabel.textColor = UIColor.white
+        self.stepLabel.transform = CGAffineTransform(rotationAngle: .pi/2)
+        
+        self.view.bringSubviewToFront(takePictureButton)
+        
+
+        
     }
     
     /* Function: before starting taking a photo, set up the AVCaptureSession to take a photo during this view */
@@ -85,25 +89,15 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         captureSession?.sessionPreset = AVCaptureSession.Preset.photo
     }
     
-    
-    
-    
-    
     /* Function: before going to next view controller (WeightRecordViewController), pass the image to the
      * WeightRecordlViewController */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-//        if segue.identifier == "takePic_To_Results" {
-//            let previewVC = segue.destination as! ResultsViewController
-//            previewVC.images = self.images
-//            previewVC.userIdentificationArray = userIdentificationArray
-//        }
         
-        
-        if segue.identifier == "next" {
+        if segue.identifier == "takePic_To_ImageResult_Segue" {
             let previewVC = segue.destination as! ImageViewController
             previewVC.images = self.images
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = self.user
         }
 
     }
@@ -231,7 +225,7 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
             self.images.append(image)
                         
             if(imageCount > 2){
-                performSegue(withIdentifier: "next", sender: nil)
+                performSegue(withIdentifier: "takePic_To_ImageResult_Segue", sender: nil)
             }
         }
     }

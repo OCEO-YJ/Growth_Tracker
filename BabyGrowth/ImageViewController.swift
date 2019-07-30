@@ -14,30 +14,27 @@ class ImageViewController: UIViewController {
 
 //    @IBOutlet weak var contentView: UIImageView!
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
-
     var images =  [UIImage]()
     @IBOutlet weak var blurryButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     
     var currentViewControllerIndex = 0
-    var userIdentificationArray: [String] = []
+    
+    var user = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configurePage()
         setUIToView()
         
-
-        // Do any additional setup after loading the view.
     }
     
     func setUIToView() {
         
         //        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
-        let backgroundColor = buttonEnabledColorToPurple()
+        let backgroundColor = helper.buttonEnabledColorToPurple()
         
         /* set the button (Login Button) to have a round border with the pink color.
          * Also, set its text color to the white color */
@@ -49,10 +46,8 @@ class ImageViewController: UIViewController {
         blurryButton.backgroundColor = backgroundColor
         blurryButton.setTitleColor(UIColor.white, for: .normal)
         
-        progressView.isHidden = true
-        
         indicator.isHidden = true
-        indicator.color = buttonEnabledColorToPurple()
+        indicator.color = .yellow
         indicator.transform = CGAffineTransform(scaleX: 2, y: 2)
             
     }
@@ -73,10 +68,9 @@ class ImageViewController: UIViewController {
         
 //        pageViewController.view.backgroundColor = UIColor.green
         contentView.addSubview(pageViewController.view)
-        contentView.bringSubviewToFront(progressView)
         contentView.bringSubviewToFront(indicator)
         
-        let views: [String: Any] = ["pageView": pageViewController.view]
+        let views: [String: Any] = ["pageView": pageViewController.view!]
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[pageView]-0-|",
                                                                  options: NSLayoutConstraint.FormatOptions(rawValue: 0),
@@ -95,8 +89,6 @@ class ImageViewController: UIViewController {
         pageViewController.setViewControllers([startingViewController], direction: .forward, animated: true)
     }
     
-    
-    
     func detail(index: Int) -> DataViewController? {
         
         if index >= images.count || images.count == 0 {
@@ -111,84 +103,47 @@ class ImageViewController: UIViewController {
         dataViewController.index = index
         dataViewController.image = images[index]
         
-//        dataViewController.displayText = dataSource[index]
-
-        
-        
         return dataViewController
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     @IBAction func blurryButton_TouchUpInside(_ sender: Any) {
         
         if blurryButton.title(for: .normal) == "RETAKE"{
             //            self.images.removeAll(keepingCapacity: false)
             
             dismiss(animated: true, completion: nil)
-            
-            
         }
         
         blurryButton.setTitle("RETAKE", for: .normal)
 
     }
     
-    func getUserFilePath(userName: String, userLastDigit: String) -> String {
-        
-        return "\(userName)\(userLastDigit)"
-        
-    }
-    
-    func getUserIdentification(userName: String, userLastDigit: String, babyBirth: String) -> String {
-        
-        return "\(userName)-\(userLastDigit)-\(babyBirth)"
-        
-    }
-    
-    func getCurrentDateAndTime() -> String {
-        
-        let dateFormatter : DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let date = Date()
-        let dateString = dateFormatter.string(from: date)
-        return dateString
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "Results_To_Weight_Segue" {
             let previewVC = segue.destination as! weightScaleViewController
-            previewVC.userIdentificationArray = userIdentificationArray
+            previewVC.user = user
         }
     }
 
 
     @IBAction func nextButton_TouchUpInside(_ sender: Any) {
         
-        
-//        progressView.isHidden = false
         indicator.isHidden = false
         
-        nextButton.backgroundColor = buttonDisEnabledColorToPurple()
+        nextButton.backgroundColor = helper.buttonDisEnabledColorToPurple()
         nextButton.isEnabled = false
         
         blurryButton.isEnabled = false
-        blurryButton.backgroundColor = buttonDisEnabledColorToPurple()
+        blurryButton.backgroundColor = helper.buttonDisEnabledColorToPurple()
         
         if nextButton.title(for: .normal) == "UPLOAD"{
-            let userFilePath = getUserFilePath(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1])
             
-            let userIdentification = getUserIdentification(userName: userIdentificationArray[0], userLastDigit: userIdentificationArray[1], babyBirth: userIdentificationArray[2])
+            let userFilePath = helper.getUserFilePath(userName: user.name!, userLastDigit: user.lastDigit!)
             
-            let getTime = getCurrentDateAndTime()
+            let userIdentification = helper.getUserIdentification(userName: user.name!, userLastDigit: user.lastDigit!, babyBirth: user.babyBirth!)
+            
+            let getTime = helper.getCurrentDateAndTime()
             
             for index in 0..<images.count{
                 
@@ -210,22 +165,12 @@ class ImageViewController: UIViewController {
                 
                 taskReference.observe(.progress) { (snapshot) in
                     self.indicator.startAnimating()
-                    
-//                    guard let pct = snapshot.progress?.fractionCompleted else { return }
-//
-//                    self.progressView.progress = Float(pct)
-//                    if(self.progressView.progress == 1.0){
-//                        self.nextButton.backgroundColor = self.buttonEnabledColorToPurple()
-//                        self.nextButton.isEnabled = true
-//                        self.nextButton.setTitle("NEXT", for: .normal)
-//                    }
-
                 }
                 
                 taskReference.observe(.success) { (snapshot) in
                     print("Sucess")
                     self.indicator.stopAnimating()
-                    self.nextButton.backgroundColor = self.buttonEnabledColorToPurple()
+                    self.nextButton.backgroundColor = helper.buttonEnabledColorToPurple()
                     self.nextButton.isEnabled = true
                     self.nextButton.setTitle("NEXT", for: .normal)
 
@@ -241,15 +186,6 @@ class ImageViewController: UIViewController {
         
 
     }
-    
-    func buttonEnabledColorToPurple() -> UIColor {
-        return UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 1.0)
-    }
-    
-    func buttonDisEnabledColorToPurple() -> UIColor {
-        return UIColor(red: 80/255.0, green: 24/255.0, blue: 133/255.0, alpha: 0.5)
-    }
-
     
 }
 
