@@ -26,11 +26,11 @@ class RotatedBar: UIView {
         self.insets = insets
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        subviews.first?.frame = bounds.insetBy(dx: insets?.dx ?? 0, dy: insets?.dy ?? 0)
-//        subviews.first?.center = CGPoint(x: frame.width/2, y: frame.height/2)
-//    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        subviews.first?.frame = bounds.insetBy(dx: insets?.dx ?? 0, dy: insets?.dy ?? 0)
+        subviews.first?.center = CGPoint(x: frame.width/2, y: frame.height/2)
+    }
 
 }
 
@@ -73,6 +73,8 @@ public class helper {
         return "\(userName)-\(userLastDigit)-\(babyBirth)"
         
     }
+    
+
 
 }
 

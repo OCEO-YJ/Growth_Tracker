@@ -516,7 +516,6 @@
 				5947EA3B22C575EC00261C31 /* WeightScaleView.swift */,
 				59E887DA22D623E000B82214 /* WeightResultsRecordView.swift */,
 				5947EA3D22C57A6C00261C31 /* EndViewController.swift */,
-				5904DA1C22DEC71D00C08770 /* CalibratorViewController.swift */,
 				5906314022C1BE100070EA4B /* Main.storyboard */,
 				5906311E22C16D900070EA4B /* BabyGrowthTests */,
 				5906311122C16D900070EA4B /* Assets.xcassets */,
@@ -526,6 +525,7 @@
 				5919341B22D3BEFF0045AF57 /* ArucoDemo-Bridging-Header.h */,
 				5904DA1E22DEC9B300C08770 /* Utilities.swift */,
 				59DD6AA722E241BA0050C94E /* ResultsViewController.swift */,
+				5904DA1C22DEC71D00C08770 /* CalibratorViewController.swift */,
 			);
 			path = BabyGrowth;
 			sourceTree = "<group>";

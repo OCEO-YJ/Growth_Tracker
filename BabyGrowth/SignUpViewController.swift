@@ -126,45 +126,65 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
+    
     @IBAction func logoutButton_TouchUpInside(_ sender: Any) {
         performSegue(withIdentifier: "signup_To_Main_Segue", sender: nil)
     }
+    
     @IBAction func signUpButton_TouchUpInside(_ sender: Any) {
         
-        var userEmail = "\(userNameTextField.text!)@growthTracker.com"
-        var userPW = "\(lastDigitTextField.text!)-\(dateTextField.text!)"
-        
-        self.user.name = userNameTextField.text!
-        self.user.lastDigit = lastDigitTextField.text!
-        self.user.babyBirth = dateTextField.text!
-        
-        print(self.user.name)
-        print(self.user.lastDigit)
-        print(self.user.babyBirth)
-
-        Auth.auth().createUser(withEmail: userEmail, password: userPW) { (result, error) in
-            if let error = error {
-                print("Failed to create a user", error.localizedDescription)
-                return
-            }
+        if Reachability.isConnectedToNetwork() {
             
-            guard let uid = result?.user.uid else {return}
+            var userEmail = "\(userNameTextField.text!)@growthTracker.com"
+            var userPW = "\(lastDigitTextField.text!)-\(dateTextField.text!)"
             
-            let values = ["email":userEmail, "username":self.userNameTextField.text!, "lastDigit": self.lastDigitTextField.text!, "babyDate":self.dateTextField.text!]
-            Database.database().reference().child("users").child(uid).updateChildValues(values, withCompletionBlock: { (error, ref) in
+            self.user.name = userNameTextField.text!
+            self.user.lastDigit = lastDigitTextField.text!
+            self.user.babyBirth = dateTextField.text!
+            
+            print(self.user.name)
+            print(self.user.lastDigit)
+            print(self.user.babyBirth)
+            
+            Auth.auth().createUser(withEmail: userEmail, password: userPW) { (result, error) in
                 if let error = error {
-                    print("Failed to update database values with error: ", error.localizedDescription)
+                    print("Failed to create a user", error.localizedDescription)
                     return
                 }
-                print("Success")
-                self.performSegue(withIdentifier: "signUp_To_Login_Segue", sender: nil)
-            })
-            
-            
+                
+                guard let uid = result?.user.uid else {return}
+                
+                let values = ["email":userEmail, "username":self.userNameTextField.text!, "lastDigit": self.lastDigitTextField.text!, "babyDate":self.dateTextField.text!]
+                Database.database().reference().child("users").child(uid).updateChildValues(values, withCompletionBlock: { (error, ref) in
+                    if let error = error {
+                        print("Failed to update database values with error: ", error.localizedDescription)
+                        return
+                    }
+                    print("Success")
+                    self.performSegue(withIdentifier: "signUp_To_Login_Segue", sender: nil)
+                })
+                
+                
+            }
+
+        }else {
+            self.setAlertToExit()
         }
         
         
     }
+    
+     func setAlertToExit(){
+        let alertView = UIAlertController(title: "Internet Connection Problem", message: "Please check you Internet Connection to run the App properly", preferredStyle: .alert)
+        
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            /*******************************/
+        }))
+        
+        self.present(alertView, animated: true)
+        
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "signUp_To_Login_Segue" {
             let previewVC = segue.destination as! LoginViewController

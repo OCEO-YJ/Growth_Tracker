@@ -51,7 +51,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         let alertView = UIAlertController(title: "Wrong Username or Password", message: "Please check your Username or Password again", preferredStyle: .alert)
         
         alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-            /*******************************/
         }))
         
         self.present(alertView, animated: true)
@@ -59,16 +58,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
 
 
-    func setAlertToExit(){
-        let alertView = UIAlertController(title: "Internet Connection Problem", message: "Please check you Internet Connection to run the App properly", preferredStyle: .alert)
-        
-        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-            /*******************************/
-        }))
-        
-        self.present(alertView, animated: true)
-
-    }
     /* Function: set all the UIs to the View */
     func setUIToView() {
         
@@ -176,15 +165,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     /* create an object function for the cancel and done button in the number pad tool bar */
     @objc func done_numberPad(){
-        
         self.view.endEditing(true)
     }
 
-    @objc func showAlert(){
-        
-        
-
-    }
     @IBAction func signUpButton_TouchUpInside(_ sender: Any) {
         
         performSegue(withIdentifier: "Main_To_SignUp_Segue", sender: self)
@@ -207,9 +190,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
                 self.user.name = self.userNameTextField.text!
                 self.user.lastDigit = self.lastDigitTextField.text!
                 self.user.babyBirth = self.babyDateTextField.text!
-                
                 print("Successfully logged in ")
                 self.performSegue(withIdentifier: "Main_To_Login_Segue", sender: self)
+                
                 
             }
 
@@ -219,6 +202,17 @@ class ViewController: UIViewController, UITextFieldDelegate{
 
     }
     
+     func setAlertToExit(){
+        let alertView = UIAlertController(title: "Internet Connection Problem", message: "Please check you Internet Connection to run the App properly", preferredStyle: .alert)
+        
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            /*******************************/
+        }))
+        
+        self.present(alertView, animated: true)
+        
+    }
+
     func setUIToBeforeStart(set: Bool){
         userNameLabel.isHidden = set
         userNameTextField.isHidden = set
@@ -239,25 +233,44 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     func authenticationUserAndConfigureView() {
         
-        Auth.auth().addStateDidChangeListener { auth, user in
-            if let user = user {
-                print("logged in ")
-                self.dispatchgroup.enter()
-                getUser(with: user.uid, completion: { (user) in
-                    self.user = user
-                    self.dispatchgroup.leave()
-
-                })
-                self.dispatchgroup.notify(queue: .main, execute: {
-
-                    self.performSegue(withIdentifier: "Main_To_Login_Segue", sender: self)
-                })
-            } else {
-                self.setUIToView()
-                self.setUIToBeforeStart(set: false)
-                print("not logged in ")
+        if Reachability.isConnectedToNetwork() {
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if let user = user {
+                    print("logged in ")
+                    self.dispatchgroup.enter()
+                    getUser(with: user.uid, completion: { (user) in
+                        self.user = user
+                        self.dispatchgroup.leave()
+                        
+                    })
+                    self.dispatchgroup.notify(queue: .main, execute: {
+                        
+                        self.performSegue(withIdentifier: "Main_To_Login_Segue", sender: self)
+                    })
+                } else {
+                    self.setUIToView()
+                    self.setUIToBeforeStart(set: false)
+                    print("not logged in ")
+                }
             }
+
+        }else {
+            let message = UILabel()
+            message.text = "There is an Internet Connection Problem. \n Please check your Wi-Fi or Cellular Data again :)"
+            message.translatesAutoresizingMaskIntoConstraints = false
+            message.lineBreakMode = .byWordWrapping
+            message.numberOfLines = 0
+            message.textAlignment = .center
+            
+            self.view.addSubview(message)
+            
+            message.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            message.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            message.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+            self.setUIToBeforeStart(set: true)
+
         }
+        
     }
     
     
