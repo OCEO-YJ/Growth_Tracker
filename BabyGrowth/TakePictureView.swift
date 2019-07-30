@@ -37,7 +37,7 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     private var captureSession: AVCaptureSession?
     private var trackerSetup = false
     private var arucoTracker: ArucoTracker?
-    static var count = 0
+    static var countDownForTakingPicture = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +78,7 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         self.stepLabel.textColor = UIColor.white
         self.stepLabel.transform = CGAffineTransform(rotationAngle: .pi/2)
         
-        self.view.bringSubviewToFront(takePictureButton)
+//        self.view.bringSubviewToFront(takePictureButton)
         
 
         
@@ -115,8 +115,6 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         settings.previewPhotoFormat = previewFormat
 
         photoOutput?.capturePhoto(with: settings, delegate: self)
-//        photoOutput?.capturePhoto(with: settings, delegate: self)
-//        photoOutput?.capturePhoto(with: settings, delegate: self)
 
 
     }
@@ -189,17 +187,29 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         tracker.prepare(for: videoOutput, orientation: .landscapeRight)
     }
     
-//    func rotated() {
-//
-//        if UIDevice.current.orientation.isLandscape {
-//            print("Landscape")
-//            if UIDevice.current.orientation.isFlat {
-//                print("Flat")
-//            } else {
-//                print("Portrait")
-//            }
-//    }
-//    }
+    func rotated() {
+        
+        switch UIApplication.shared.statusBarOrientation {
+        case .portrait:
+            //do something
+            print("1")
+            break
+        case .portraitUpsideDown:
+            print("2")
+            break
+        case .landscapeLeft:
+            print("3")
+            break
+        case .landscapeRight:
+            print("4")
+            break
+        case .unknown:
+            //default
+            break
+        }
+
+
+    }
 
 }
 
@@ -235,20 +245,20 @@ extension TakePictureViewController: ArucoTrackerDelegate {
     
     func arucoTracker(_ tracker: ArucoTracker, didDetect markers: [ArucoMarker], preview: UIImage?, get: Bool) {
         DispatchQueue.main.async { [unowned self] in
-            
+
             self.camView.image = preview
             if(get == true){
                 
                 self.stepLabel.text = "HOLD STILL YOUR PHONE FOR UNTIL TAKING A PICTURE"
                 self.stepLabel.font = UIFont(name: "Helvetica" ,size: 10.0)
                 self.stepLabel.textColor = UIColor.red
-                TakePictureViewController.count += 1
+                TakePictureViewController.countDownForTakingPicture += 1
 
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
 
-                if(TakePictureViewController.count == 25){
+                if(TakePictureViewController.countDownForTakingPicture == 25){
                     self.takePictureButton.sendActions(for: .touchUpInside)
-                    TakePictureViewController.count = 0
+                    TakePictureViewController.countDownForTakingPicture = 0
 
                 }
                 
@@ -256,16 +266,16 @@ extension TakePictureViewController: ArucoTrackerDelegate {
                 self.stepLabel.text = "STEP1: Taking Pictures of Baby"
                 self.stepLabel.font = UIFont(name: "Helvetica" ,size: 13.0)
                 self.stepLabel.textColor = UIColor.white
-                TakePictureViewController.count = 0
+                TakePictureViewController.countDownForTakingPicture = 0
             }
 
-            }
-        
+        }
+
 
     }
 
     
 
-    }
+}
 
 

@@ -16,7 +16,6 @@
 		5906312022C16D900070EA4B /* BabyGrowthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906311F22C16D900070EA4B /* BabyGrowthTests.swift */; };
 		5906312B22C16D900070EA4B /* BabyGrowthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906312A22C16D900070EA4B /* BabyGrowthUITests.swift */; };
 		5906314122C1BE100070EA4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5906314022C1BE100070EA4B /* Main.storyboard */; };
-		5906314322C1C24B0070EA4B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314222C1C24B0070EA4B /* Helper.swift */; };
 		5906314522C2B7130070EA4B /* GrowthCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314422C2B7130070EA4B /* GrowthCurveView.swift */; };
 		5906314722C2B7480070EA4B /* TakePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906314622C2B7480070EA4B /* TakePictureView.swift */; };
 		59192D2722D171610045AF57 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59192D2622D171610045AF57 /* opencv2.framework */; };
@@ -88,7 +87,6 @@
 		5906312A22C16D900070EA4B /* BabyGrowthUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyGrowthUITests.swift; sourceTree = "<group>"; };
 		5906312C22C16D900070EA4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5906314022C1BE100070EA4B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		5906314222C1C24B0070EA4B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		5906314422C2B7130070EA4B /* GrowthCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowthCurveView.swift; sourceTree = "<group>"; };
 		5906314622C2B7480070EA4B /* TakePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePictureView.swift; sourceTree = "<group>"; };
 		59192D2622D171610045AF57 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
@@ -512,7 +510,7 @@
 				5947EA4122C57B8500261C31 /* LoginView.swift */,
 				5906314422C2B7130070EA4B /* GrowthCurveView.swift */,
 				5906314622C2B7480070EA4B /* TakePictureView.swift */,
-				59DD6AA722E241BA0050C94E /* ResultsViewController.swift */,
+				593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */,
 				593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */,
 				593F6CBA22E9E32400ED69D2 /* ResultsRecordView.swift */,
 				5947EA3B22C575EC00261C31 /* WeightScaleView.swift */,
@@ -526,9 +524,8 @@
 				5906311622C16D900070EA4B /* Info.plist */,
 				598F363B22E9D41500251719 /* GoogleService-Info.plist */,
 				5919341B22D3BEFF0045AF57 /* ArucoDemo-Bridging-Header.h */,
-				5906314222C1C24B0070EA4B /* Helper.swift */,
 				5904DA1E22DEC9B300C08770 /* Utilities.swift */,
-				593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */,
+				59DD6AA722E241BA0050C94E /* ResultsViewController.swift */,
 			);
 			path = BabyGrowth;
 			sourceTree = "<group>";
@@ -1536,7 +1533,6 @@
 				5947EA3C22C575EC00261C31 /* WeightScaleView.swift in Sources */,
 				591933C922D1774B0045AF57 /* cvdrawingutils.cpp in Sources */,
 				598BE40322EC9C53003E02B2 /* SignUpViewController.swift in Sources */,
-				5906314322C1C24B0070EA4B /* Helper.swift in Sources */,
 				5904DA1F22DEC9B300C08770 /* Utilities.swift in Sources */,
 				5904DA1D22DEC71D00C08770 /* CalibratorViewController.swift in Sources */,
 				591933A522D1774B0045AF57 /* Calibrator.mm in Sources */,

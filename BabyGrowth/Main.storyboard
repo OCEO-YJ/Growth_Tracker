@@ -444,21 +444,6 @@
             </objects>
             <point key="canvasLocation" x="1807.2463768115942" y="-935.054347826087"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="8RS-kj-4jM">
-            <objects>
-                <viewController storyboardIdentifier="SecondIView" id="XsX-vb-926" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="REN-er-w8d">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="VsD-M5-OSm"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ndS-dc-zhj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="882" y="-2398"/>
-        </scene>
         <!--Data View Controller-->
         <scene sceneID="D1K-EX-auG">
             <objects>

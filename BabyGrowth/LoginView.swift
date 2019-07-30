@@ -52,7 +52,17 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
 
     /* Function: if the user clicks the take a picture button, then the user would go the camera view */
     @IBAction func takePictureButton_TouchUpInside(_ sender: Any) {
-        performSegue(withIdentifier: "Login_To_TakePicrue_Segue", sender: nil)
+        
+        let alertView = UIAlertController(title: "Device Orientation", message: "Please make sure your device is in landscape position", preferredStyle: .alert)
+        
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            /*******************************/
+            self.performSegue(withIdentifier: "Login_To_TakePicrue_Segue", sender: nil)
+
+        }))
+        
+        self.present(alertView, animated: true)
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
