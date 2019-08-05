@@ -34,15 +34,15 @@
 		591933D022D1774B0045AF57 /* debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 591933A022D1774B0045AF57 /* debug.cpp */; };
 		591933D122D1774B0045AF57 /* dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 591933A322D1774B0045AF57 /* dictionary.cpp */; };
 		591933D222D1774B0045AF57 /* markermap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 591933A422D1774B0045AF57 /* markermap.cpp */; };
+		5927F7AA22F78BA2006931D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5927F7A922F78BA2006931D5 /* GoogleService-Info.plist */; };
+		5927F7AD22F7B654006931D5 /* camera_parameters.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5927F7AC22F7B654006931D5 /* camera_parameters.yml */; };
 		593F6CBB22E9E32400ED69D2 /* ResultsRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBA22E9E32400ED69D2 /* ResultsRecordView.swift */; };
 		593F6CBD22E9EBDA00ED69D2 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */; };
 		593F6CBF22E9EDA800ED69D2 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */; };
-		593F6CC722EA7EA100ED69D2 /* camera_parameters.yml in Resources */ = {isa = PBXBuildFile; fileRef = 593F6CC622EA7EA100ED69D2 /* camera_parameters.yml */; };
 		5947EA3C22C575EC00261C31 /* WeightScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3B22C575EC00261C31 /* WeightScaleView.swift */; };
 		5947EA3E22C57A6C00261C31 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA3D22C57A6C00261C31 /* EndViewController.swift */; };
 		5947EA4222C57B8500261C31 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947EA4122C57B8500261C31 /* LoginView.swift */; };
 		598BE40322EC9C53003E02B2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598BE40222EC9C53003E02B2 /* SignUpViewController.swift */; };
-		598F363C22E9D41500251719 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 598F363B22E9D41500251719 /* GoogleService-Info.plist */; };
 		59C0459422EDF3B000ECBDA9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C0459322EDF3B000ECBDA9 /* User.swift */; };
 		59DD6AA822E241BA0050C94E /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD6AA722E241BA0050C94E /* ResultsViewController.swift */; };
 		59E887DB22D623E000B82214 /* WeightResultsRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E887DA22D623E000B82214 /* WeightResultsRecordView.swift */; };
@@ -429,15 +429,15 @@
 		591933A422D1774B0045AF57 /* markermap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = markermap.cpp; sourceTree = "<group>"; };
 		5919341B22D3BEFF0045AF57 /* ArucoDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArucoDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		591E1D5EDD66C6F069F8D73F /* Pods_GrowthTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrowthTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5927F7A922F78BA2006931D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5927F7AC22F7B654006931D5 /* camera_parameters.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = camera_parameters.yml; sourceTree = "<group>"; };
 		593F6CBA22E9E32400ED69D2 /* ResultsRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRecordView.swift; sourceTree = "<group>"; };
 		593F6CBC22E9EBDA00ED69D2 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		593F6CBE22E9EDA800ED69D2 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		593F6CC622EA7EA100ED69D2 /* camera_parameters.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = camera_parameters.yml; path = ../../../../../../Desktop/camera_parameters.yml; sourceTree = "<group>"; };
 		5947EA3B22C575EC00261C31 /* WeightScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightScaleView.swift; sourceTree = "<group>"; };
 		5947EA3D22C57A6C00261C31 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		5947EA4122C57B8500261C31 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		598BE40222EC9C53003E02B2 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		598F363B22E9D41500251719 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		59C0459322EDF3B000ECBDA9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		59DD6AA722E241BA0050C94E /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		59E887DA22D623E000B82214 /* WeightResultsRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightResultsRecordView.swift; sourceTree = "<group>"; };
@@ -521,7 +521,7 @@
 				5906311122C16D900070EA4B /* Assets.xcassets */,
 				5906311322C16D900070EA4B /* LaunchScreen.storyboard */,
 				5906311622C16D900070EA4B /* Info.plist */,
-				598F363B22E9D41500251719 /* GoogleService-Info.plist */,
+				5927F7A922F78BA2006931D5 /* GoogleService-Info.plist */,
 				5919341B22D3BEFF0045AF57 /* ArucoDemo-Bridging-Header.h */,
 				5904DA1E22DEC9B300C08770 /* Utilities.swift */,
 				59DD6AA722E241BA0050C94E /* ResultsViewController.swift */,
@@ -1267,7 +1267,7 @@
 		593F6CC322EA7C9300ED69D2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				593F6CC622EA7EA100ED69D2 /* camera_parameters.yml */,
+				5927F7AC22F7B654006931D5 /* camera_parameters.yml */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1401,9 +1401,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				593F6CC722EA7EA100ED69D2 /* camera_parameters.yml in Resources */,
+				5927F7AD22F7B654006931D5 /* camera_parameters.yml in Resources */,
 				5906314122C1BE100070EA4B /* Main.storyboard in Resources */,
-				598F363C22E9D41500251719 /* GoogleService-Info.plist in Resources */,
+				5927F7AA22F78BA2006931D5 /* GoogleService-Info.plist in Resources */,
 				5906311522C16D900070EA4B /* LaunchScreen.storyboard in Resources */,
 				5906311222C16D900070EA4B /* Assets.xcassets in Resources */,
 			);
@@ -1715,7 +1715,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3DN3KRRSLE;
+				DEVELOPMENT_TEAM = N9K83G3K26;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -1725,7 +1725,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = OCEO.BabyGrowth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gulpbaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/BabyGrowth/ArucoDemo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1739,7 +1739,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3DN3KRRSLE;
+				DEVELOPMENT_TEAM = N9K83G3K26;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -1749,7 +1749,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = OCEO.BabyGrowth;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gulpbaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/BabyGrowth/ArucoDemo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

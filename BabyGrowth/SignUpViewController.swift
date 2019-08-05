@@ -21,6 +21,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var dateTextField: UITextField!
     
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var backLabel: UILabel!
     
     let datePicker = UIDatePicker()
     let numberPad = UIKeyboardType.numberPad
@@ -58,6 +59,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         [userNameTextField, lastDigitTextField, dateTextField].forEach({ $0.addTarget(self, action: #selector(editingChanged), for: .editingDidEnd) })
         
+        lastDigitTextField.addTarget(self, action: #selector(checkdigit(_:)), for: .editingDidEnd)
         
         
         /* by using a helper swift file, set the all the text field to have a underline without border */
@@ -78,6 +80,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         lastDigitTextField.inputAccessoryView = toolbar_LastDigit
         
         showDatePicker()
+        
+        backLabel.textColor = helper.buttonEnabledColorToPurple()
         
     }
     
@@ -105,6 +109,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         dateTextField.inputAccessoryView = toolbar_BabyDate
         dateTextField.inputView = datePicker
         
+    }
+    
+    @objc func checkdigit (_ textfiled: UITextField) {
+    
+        if(lastDigitTextField.text!.count != 4){
+            lastDigitLabel.textColor = .red
+        }else{
+            lastDigitLabel.textColor = helper.buttonEnabledColorToPurple()
+        }
+    
     }
     
     @objc func editingChanged(_ textField: UITextField) {

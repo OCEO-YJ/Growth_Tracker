@@ -15,7 +15,7 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     
 
     /*IBOutlet Field*/
-    @IBOutlet weak var takePictureButton: UIButton!
+//    @IBOutlet weak var takePictureButton: UIButton!
     @IBOutlet weak var camView: UIImageView!
     
     @IBOutlet weak var stepLabel: UILabel!
@@ -70,9 +70,9 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
         
         /* set the button (Login Button) to have a round border with the pink color.
          * Also, set its text color to the white color */        
-        takePictureButton.layer.cornerRadius = 10
-        takePictureButton.backgroundColor = backgroundColor
-        takePictureButton.setTitleColor(UIColor.white, for: .normal)
+//        takePictureButton.layer.cornerRadius = 10
+//        takePictureButton.backgroundColor = backgroundColor
+//        takePictureButton.setTitleColor(UIColor.white, for: .normal)
         
         self.stepLabel.text = "STEP1: Taking Pictures of Baby"
         self.stepLabel.textColor = UIColor.white
@@ -103,7 +103,23 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
     }
 
     /* Function: call the WeightRecordView with the AVCapturePhotoSettings by calling AVCapturePhotoCaptureDelegate */
-    @IBAction func takePicture_TouchUpInside(_ sender: Any) {
+//    @IBAction func takePicture_TouchUpInside(_ sender: Any) {
+//
+//        let settings = AVCapturePhotoSettings()
+//        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
+//        let previewFormat = [
+//            kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
+//            kCVPixelBufferWidthKey as String: 160,
+//            kCVPixelBufferHeightKey as String: 160
+//        ]
+//        settings.previewPhotoFormat = previewFormat
+//
+//        photoOutput?.capturePhoto(with: settings, delegate: self)
+//
+//
+//    }
+    
+    func takePicture() {
         
         let settings = AVCapturePhotoSettings()
         let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
@@ -113,9 +129,8 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
             kCVPixelBufferHeightKey as String: 160
         ]
         settings.previewPhotoFormat = previewFormat
-
+        
         photoOutput?.capturePhoto(with: settings, delegate: self)
-
 
     }
     
@@ -257,7 +272,8 @@ extension TakePictureViewController: ArucoTrackerDelegate {
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
 
                 if(TakePictureViewController.countDownForTakingPicture == 25){
-                    self.takePictureButton.sendActions(for: .touchUpInside)
+//                    self.takePictureButton.sendActions(for: .touchUpInside)
+                    self.takePicture()
                     TakePictureViewController.countDownForTakingPicture = 0
 
                 }

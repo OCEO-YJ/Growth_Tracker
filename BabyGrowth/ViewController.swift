@@ -104,6 +104,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         /* connect the date picker to the weightTextField */
         lastDigitTextField.keyboardType = UIKeyboardType.numberPad
         lastDigitTextField.inputAccessoryView = toolbar_LastDigit
+        lastDigitTextField.addTarget(self, action: #selector(checkdigit(_:)), for: .editingDidEnd)
         
         showDatePicker()
 
@@ -136,6 +137,16 @@ class ViewController: UIViewController, UITextFieldDelegate{
         
     }
     
+    @objc func checkdigit (_ textfiled: UITextField) {
+        
+        if(lastDigitTextField.text!.count != 4){
+            lastDigitLabel.textColor = .red
+        }else{
+            lastDigitLabel.textColor = helper.buttonEnabledColorToPurple()
+        }
+        
+    }
+
     /* create an object function for the done button in the date picker tool bar */
     @objc func donedatePicker(){
         

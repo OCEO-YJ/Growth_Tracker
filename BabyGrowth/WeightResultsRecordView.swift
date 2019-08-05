@@ -45,9 +45,10 @@ class WeightResultsRecordViewController: UIViewController {
         /* set the button (Login Button) to have a round border with the pink color.
          * Also, set its text color to the white color */
         finishButton.layer.cornerRadius = 10
-        finishButton.backgroundColor = backgroundColor
+        finishButton.backgroundColor = helper.buttonDisEnabledColorToPurple()
+        finishButton.isEnabled = false
         finishButton.setTitleColor(UIColor.white, for: .normal)
-        finishButton.isHidden = true
+        
         
         blurryButton.layer.cornerRadius = 10
         blurryButton.backgroundColor = backgroundColor
@@ -58,11 +59,11 @@ class WeightResultsRecordViewController: UIViewController {
         indicator.transform = CGAffineTransform(scaleX: 2, y: 2)
         
         /* set the weightTextField to have information string with the light gray color using a numberPad */
-        weightTextField.text = "Input Baby's Weight (Kg)"
+        weightTextField.text = "Input Baby's Weight (LB)"
         weightTextField.textAlignment = NSTextAlignment.center
-        weightTextField.textColor = UIColor.lightGray
+        weightTextField.textColor = UIColor.red
         weightTextField.font =  UIFont(name: (weightTextField.font?.fontName)!, size: CGFloat(10.0))
-        
+
         /* set the tool bar Items (Cancel - Space - Done) */
         let toolbar_LastDigit = UIToolbar();
         toolbar_LastDigit.sizeToFit()
@@ -74,12 +75,24 @@ class WeightResultsRecordViewController: UIViewController {
         /* connect the date picker to the weightTextField */
         weightTextField.keyboardType = UIKeyboardType.numberPad
         weightTextField.inputAccessoryView = toolbar_LastDigit
+//        weightTextField.addTarget(self, action: #selector(checkInput(_:)), for: .editingDidEnd)
 
         let userFilePath = helper.getUserFilePath(userName: user.name!, userLastDigit: user.lastDigit!)
         
         docRefUser = Firestore.firestore().collection("growthTrackerData").document("\(userFilePath)")
         docRefDate = Firestore.firestore().collection("growthTrackerData").document("\(userFilePath)").collection("Dates").document("\(helper.getCurrentDateAndTime())")
+        
 
+    }
+    
+    @objc func checkInput(_ textfiled: UITextField){
+        if weightTextField.text!.count != 0 {
+            weightTextField.textColor = .black
+            finishButton.backgroundColor = helper.buttonEnabledColorToPurple()
+            finishButton.isEnabled = true
+        }else {
+            weightTextField.textColor = .red
+        }
     }
     
     /* create an object function for the cancel and done button in the number pad tool bar */
@@ -87,10 +100,16 @@ class WeightResultsRecordViewController: UIViewController {
         /* set the numberPad has a specific weight formant to be put in the weightTextField */
         
         if weightTextField.text?.isEmpty ?? true {
-            finishButton.isHidden = true
+            finishButton.isEnabled = false
+            finishButton.backgroundColor = helper.buttonDisEnabledColorToPurple()
+            weightTextField.text = "Input Baby's Weight (LB)"
+            weightTextField.textColor = .red
 
+            
         } else {
-            finishButton.isHidden = false
+            finishButton.isEnabled = true
+            weightTextField.textColor = .black
+            finishButton.backgroundColor = helper.buttonEnabledColorToPurple()
         }
         self.view.endEditing(true)
     }
@@ -98,10 +117,13 @@ class WeightResultsRecordViewController: UIViewController {
     
     @objc func cancel_numberPad(){
         /* set the numberPad has a specific weight formant to be put in the weightTextField */
-        weightTextField.text = ""
+        weightTextField.text = "Input Baby's Weight (LB)"
+        weightTextField.textColor = .red
         
         if weightTextField.text?.isEmpty ?? true {
-            finishButton.isHidden = true
+            finishButton.isEnabled = false
+            finishButton.backgroundColor = helper.buttonDisEnabledColorToPurple()
+
         }
 
         self.view.endEditing(true)

@@ -21,6 +21,8 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
     @IBOutlet weak var sendTextMessage: UIButton!
     @IBOutlet weak var lastCheckInHeader: UILabel!
     @IBOutlet weak var signOutButton: UIButton!
+    @IBOutlet weak var logoutLabel: UILabel!
+    @IBOutlet weak var needHelpLabel: UILabel!
     
     var user = User()
     
@@ -47,6 +49,9 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
         growthCurveButton.layer.cornerRadius = 10
         growthCurveButton.backgroundColor = helper.buttonEnabledColorToPurple()
         growthCurveButton.setTitleColor(UIColor.white, for: .normal)
+        
+        logoutLabel.textColor = helper.buttonEnabledColorToPurple()
+        needHelpLabel.textColor = helper.buttonEnabledColorToPurple()
         
     }
 
