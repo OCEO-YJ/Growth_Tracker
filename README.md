@@ -6,10 +6,11 @@ This is an iOS app for tracking baby's growth curve
 Please follow these steps to run the App properly:
 
 * From the root project folder, find the path of the `Eigen` and run the chmod.
-  For example, run `chmod -R 755 ./Aruco/3rdparty/eigen3/Eigen.`
+Please run this command on your terminal: `chmod -R 755 ./Aruco/3rdparty/eigen3/Eigen`
+
 * Download OpenCV 3.4.X (iOS pack) from [here](https://opencv.org/releases.html).
 * Make a new folder `Frameworks` in the project root and copy `opencv2.framework` into it.
-* Install the remaining dependencies by running `pod install`.
+* Install the remaining dependencies by running `pod install`. If pod is not installed on your computer, please run `sudo gem install cocoapods` before you do `pod install`. 
 
 * You might also need to change the code from the openCV frameworks, since the version is update
 
