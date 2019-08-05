@@ -7,11 +7,11 @@ Please follow these steps to run the App properly:
 
 * From the root project folder, find the path of the `Eigen` and run the chmod.
 Please run this command on your terminal: `chmod -R 755 ./Aruco/3rdparty/eigen3/Eigen`
-
 * Download OpenCV 3.4.X (iOS pack) from [here](https://opencv.org/releases.html).
 * Make a new folder `Frameworks` in the project root and copy `opencv2.framework` into it.
 * Install the remaining dependencies by running `pod install`. If pod is not installed on your computer, please run `sudo gem install cocoapods` before you do `pod install`. 
-
+* Go to the this link [here](https://drive.google.com/file/d/101spzaRg28DmzttGntuv9rruakv3o-HG/view?usp=sharing) and download the yml file.
+* After you download the yml file, then drag into the `Resources` folder and replaced with old one
 * You might also need to change the code from the openCV frameworks, since the version is update
 
 ## Usage
