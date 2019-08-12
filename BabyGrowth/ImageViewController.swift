@@ -170,12 +170,11 @@ class ImageViewController: UIViewController {
                 taskReference.observe(.success) { (snapshot) in
                     print("Sucess")
                     self.indicator.stopAnimating()
+                    self.indicator.isHidden = true
                     self.nextButton.backgroundColor = helper.buttonEnabledColorToPurple()
                     self.nextButton.isEnabled = true
                     self.nextButton.setTitle("NEXT", for: .normal)
-
                 }
- 
             }
             
         }else{

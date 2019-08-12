@@ -439,6 +439,7 @@
 		5947EA4122C57B8500261C31 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		598BE40222EC9C53003E02B2 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		59C0459322EDF3B000ECBDA9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		59CA399422FA8E9100459775 /* GrowthTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GrowthTracker.entitlements; sourceTree = "<group>"; };
 		59DD6AA722E241BA0050C94E /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		59E887DA22D623E000B82214 /* WeightResultsRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightResultsRecordView.swift; sourceTree = "<group>"; };
 		7190BEEF829FB303E5F96463 /* Pods-GrowthTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrowthTrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-GrowthTrackerTests/Pods-GrowthTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -480,6 +481,7 @@
 		590630FE22C16D8E0070EA4B = {
 			isa = PBXGroup;
 			children = (
+				59CA399422FA8E9100459775 /* GrowthTracker.entitlements */,
 				5919322622D1774A0045AF57 /* Aruco */,
 				5906310922C16D8E0070EA4B /* BabyGrowth */,
 				5906312922C16D900070EA4B /* BabyGrowthUITests */,
@@ -1365,6 +1367,11 @@
 				TargetAttributes = {
 					5906310622C16D8E0070EA4B = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					5906311A22C16D900070EA4B = {
 						CreatedOnToolsVersion = 10.2.1;

@@ -197,7 +197,7 @@ class WeightResultsRecordViewController: UIViewController {
             
             let userFilePath = helper.getUserFilePath(userName: user.name!, userLastDigit: user.lastDigit!)
             
-            let reference = "\(userFilePath)/WeightScalePhoto/\(weightTextField.text!)kg ::: \(helper.getCurrentDateAndTime()).jpg"
+            let reference = "\(userFilePath)/WeightScalePhoto/\(weightTextField.text!)LB ::: \(helper.getCurrentDateAndTime()).jpg"
             let uploadRef = Storage.storage().reference(withPath: reference)
             guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
             let uploadMetadata = StorageMetadata.init()
@@ -218,6 +218,7 @@ class WeightResultsRecordViewController: UIViewController {
             taskReference.observe(.success) { (snapshot) in
                 
                 self.indicator.stopAnimating()
+                self.indicator.isHidden = true
                 self.finishButton.backgroundColor = helper.buttonEnabledColorToPurple()
                 self.finishButton.isEnabled = true
                 self.finishButton.setTitle("NEXT", for: .normal)

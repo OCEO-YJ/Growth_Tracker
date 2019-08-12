@@ -13,8 +13,8 @@ import AVFoundation
 class weightScaleViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var stepLabel: UILabel!
-    @IBOutlet weak var weightTextField: UITextField!
-    @IBOutlet weak var uploadButton: UIButton!
+//    @IBOutlet weak var weightTextField: UITextField!
+//    @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var takePicButton: UIButton!
     
@@ -35,7 +35,7 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-//        setUIToView()
+        setUIToView()
         setupCaptureSession()
         setupDevice()
         setupInputOutput()
@@ -46,7 +46,13 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
         self.view.bringSubviewToFront(stepLabel)
 
     }
+    
+    func setUIToView() {
         
+        takePicButton.layer.cornerRadius = 10
+        takePicButton.backgroundColor = helper.buttonEnabledColorToPurple()
+        takePicButton.setTitleColor(UIColor.white, for: .normal)
+    }
 
     /* Function: before starting taking a photo, set up the AVCaptureSession to take a photo during this view */
     func setupCaptureSession() {
@@ -133,19 +139,19 @@ class weightScaleViewController: UIViewController, UITextFieldDelegate {
     }
     
     /* From text field's delegate, whenever user click "return", then the keyboard will be dismiss from the view */
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        weightTextField.resignFirstResponder()
-        return true
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        weightTextField.resignFirstResponder()
+//        return true
+//    }
     
 
 
     /* Function: when the user clicks the weight text field, then its information string would be gone */
-    @IBAction func weightTextField_TouchDown(_ sender: Any) {
-        
-        weightTextField.text = ""
-
-    }
+//    @IBAction func weightTextField_TouchDown(_ sender: Any) {
+//        
+//        weightTextField.text = ""
+//
+//    }
     
     /* Function: when the user clicks the finish button, then user would go to the End View */
     @IBAction func finishButton_TouchUpInside(_ sender: Any) {

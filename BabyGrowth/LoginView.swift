@@ -131,7 +131,7 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
     @IBAction func sendTextMessage_TouchUpInSide(_ sender: Any) {
         
         if MFMessageComposeViewController.canSendText() == true {
-            let recipients:[String] = ["425-365-8616"]
+            let recipients:[String] = ["206-330-8802"]
             let messageController = MFMessageComposeViewController()
             messageController.messageComposeDelegate  = self
             messageController.recipients = recipients

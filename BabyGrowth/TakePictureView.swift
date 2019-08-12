@@ -233,17 +233,6 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
             
-            
-//            PHPhotoLibrary.requestAuthorization { status in
-//                guard status == .authorized else { return }
-//
-//                PHPhotoLibrary.shared().performChanges({
-//                    // Add the captured photo's file data as the main resource for the Photos asset.
-//                    let creationRequest = PHAssetCreationRequest.forAsset()
-//                    creationRequest.addResource(with: .photo, data: photo.fileDataRepresentation()!, options: nil)
-//                }, completionHandler: nil)
-//            }
-            
             imageCount += 1
             print(UIImage(data: imageData)?.size as Any)
             let image = UIImage(data: imageData)!
