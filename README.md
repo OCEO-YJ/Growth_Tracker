@@ -12,9 +12,15 @@ Please follow these steps to run the App properly:
 - From the root project folder, find the path of the `Eigen` and run the chmod.
   Please run this command on your terminal: `chmod -R 755 ./Aruco/3rdparty/eigen3/Eigen`
 - Download OpenCV 3.4.7 (Recommended) or 4.1.1 (iOS pack) from [here](https://opencv.org/releases.html).
-- After download the openCV library, open the sidebar of Xcode (navigation), drag the `opencv2.framework` file under the `frameworks` folder in Xcode. Select `Add folders` -> Create Folder References and `Destination` -> Copy items if needed. and `Add to Target` -> GrowthTracker.  
+- After download the openCV library, open the sidebar of Xcode (navigation), drag the `opencv2.framework` file under the `frameworks` folder in Xcode.
+  - Select `Add folders` -> Create Folder References.
+  - Select `Destination` -> Copy items if needed.
+  - Select `Add to Target` -> GrowthTracker.  
 - Remove `Aruco` folder through the Xcode, but do not click `move to trash`.
-  - After remove the folder, then drag `Aruco` folder in the root project into Xcode directly. Select `Add folders` -> Create groups and `Destination` -> Copy items if needed. and `Add to Target` -> GrowthTracker.
+  - After remove the folder, then drag `Aruco` folder in the root project into Xcode directly.
+    - Select `Add folders` -> **Create groups**
+    - Select `Destination` -> Copy items if needed.
+    - Select `Add to Target` -> GrowthTracker.
 - Go to the `build phases` in the setting, then go to `Copy Bundle Resoruces` and keep 5 files as below
   - `camera_parameter.yml`
   - `Main.storyboard`
