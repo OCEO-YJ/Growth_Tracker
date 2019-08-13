@@ -4,30 +4,30 @@
 
 ## Installation
 
-Please follow these steps to run the App properly:
+If it is your first to install this app on your computer, Do the following:
+- Install the remaining dependencies by running `pod install`. If pod is not installed on your computer, please run `sudo gem install cocoapods` before you do `pod install`.
 
+Please follow these steps to run the App properly:
 - Open `workspace` instead of `xcode project`.
 - From the root project folder, find the path of the `Eigen` and run the chmod.
   Please run this command on your terminal: `chmod -R 755 ./Aruco/3rdparty/eigen3/Eigen`
-- Download OpenCV 3.4.X (iOS pack) from [here](https://opencv.org/releases.html).
-  - After download the openCV library, drag the library into the `Frameworks` folder through Xcode.
-  - If you don't have the `Frameworks` folder, make a new folder `Frameworks` in the project root and copy `opencv2.framework` into it.
-- Remove `Aruco` folder through the Xcode, but do not click `move to trash`, but `remove reference`.
-  - After remove the folder, then drag `Aruco` folder in the root project into Xcode directly.
-- If `camera_parameter.yml` in the Resources folder is written as binary code, then remove `camera_parameter.yml` folder through the Xcode, but do not click `move to trash`, but `remove reference`.
-  - After remove the file, go to the this link [here](https://drive.google.com/file/d/101spzaRg28DmzttGntuv9rruakv3o-HG/view?usp=sharing) and download the yml file.
-  - After you download the yml file, then drag into the `Resources` folder and replaced with old one.
-- If either `GoogleService-info.plist` cannot be found in the Xcode or `GoogleService-info.plist` cannot be loaded, please open the project root and find the `GoogleService-info.plist` file.
-  - Drag it into the `BabyGrowth` folder through Xcode directly.
+- Download OpenCV 3.4.7 (Recommended) or 4.1.1 (iOS pack) from [here](https://opencv.org/releases.html).
+- After download the openCV library, open the sidebar of Xcode (navigation), drag the `opencv2.framework` file under the `frameworks` folder in Xcode. Select `Add folders` -> Create Folder References and `Destination` -> Copy items if needed. and `Add to Target` -> GrowthTracker.  
+- Remove `Aruco` folder through the Xcode, but do not click `move to trash`.
+  - After remove the folder, then drag `Aruco` folder in the root project into Xcode directly. Select `Add folders` -> Create groups and `Destination` -> Copy items if needed. and `Add to Target` -> GrowthTracker.
 - Go to the `build phases` in the setting, then go to `Copy Bundle Resoruces` and keep 5 files as below
   - `camera_parameter.yml`
   - `Main.storyboard`
   - `GoogleService-info.plist`
   - `LaunchScreen.storyboard`
   - `Assets.xcassets`
-- Install the remaining dependencies by running `pod install`. If pod is not installed on your computer, please run `sudo gem install cocoapods` before you do `pod install`.
 
-- You might also need to change the code from the openCV frameworks, since the version is update
+- OPTIONAL: If `camera_parameter.yml` in the Resources folder is written as binary code, then remove `camera_parameter.yml` folder through the Xcode, but do not click `move to trash`, but `remove reference`.
+  - After remove the file, go to the this link [here](https://drive.google.com/file/d/101spzaRg28DmzttGntuv9rruakv3o-HG/view?usp=sharing) and download the yml file.
+  - After you download the yml file, then drag into the `Resources` folder and replaced with old one.
+
+- OPTIONAL: If either `GoogleService-info.plist` cannot be found in the Xcode or `GoogleService-info.plist` cannot be loaded, please open the project root and find the `GoogleService-info.plist` file.
+    - Drag it into the `BabyGrowth` folder through Xcode directly.
 
 ## Usage
 
