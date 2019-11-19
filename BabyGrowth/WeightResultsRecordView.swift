@@ -40,6 +40,8 @@ class WeightResultsRecordViewController: UIViewController {
     
     func setUIToView(){
         
+        
+        
         //        let backgroundColor = UIColor(red: 255.0/255.0, green: 90/255.0, blue: 101/255.0, alpha: 1.0)
         let backgroundColor = helper.buttonEnabledColorToPurple()
         /* set the button (Login Button) to have a round border with the pink color.
@@ -73,7 +75,8 @@ class WeightResultsRecordViewController: UIViewController {
         toolbar_LastDigit.setItems([cancelButton_LastDigit,spaceButton_LastDigit,doneButton_LastDigit], animated: false)
 
         /* connect the date picker to the weightTextField */
-        weightTextField.keyboardType = UIKeyboardType.numberPad
+        weightTextField.keyboardType = UIKeyboardType.decimalPad
+        weightTextField.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         weightTextField.inputAccessoryView = toolbar_LastDigit
 //        weightTextField.addTarget(self, action: #selector(checkInput(_:)), for: .editingDidEnd)
 

@@ -10,7 +10,6 @@ import UIKit
 import Charts
 import FirebaseFirestore
 import Firebase
-
 class GrowthCurveViewController: UIViewController {
     
     @IBOutlet weak var growthCurveLabel: UILabel!

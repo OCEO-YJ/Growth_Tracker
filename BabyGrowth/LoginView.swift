@@ -50,6 +50,8 @@ class LoginViewController: UIViewController, MFMessageComposeViewControllerDeleg
         growthCurveButton.backgroundColor = helper.buttonEnabledColorToPurple()
         growthCurveButton.setTitleColor(UIColor.white, for: .normal)
         
+        growthCurveButton.isHidden = true
+        
         logoutLabel.textColor = helper.buttonEnabledColorToPurple()
         needHelpLabel.textColor = helper.buttonEnabledColorToPurple()
         

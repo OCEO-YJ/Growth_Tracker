@@ -36,6 +36,8 @@ class EndViewController: UIViewController {
         viewGrowthCurveButton.layer.cornerRadius = 10
         viewGrowthCurveButton.backgroundColor = backgroundColor
         viewGrowthCurveButton.setTitleColor(UIColor.white, for: .normal)
+        
+        viewGrowthCurveButton.isHidden = true
 
     }
     

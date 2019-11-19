@@ -75,6 +75,8 @@ class TakePictureViewController: UIViewController, AVCaptureVideoDataOutputSampl
 //        takePictureButton.setTitleColor(UIColor.white, for: .normal)
         
         self.stepLabel.text = "STEP1: Taking Pictures of Baby"
+        stepLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+
         self.stepLabel.textColor = UIColor.white
         self.stepLabel.transform = CGAffineTransform(rotationAngle: .pi/2)
         
